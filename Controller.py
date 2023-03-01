@@ -750,12 +750,11 @@ st.pydeck_chart(deck)
 
 lrpath2 = 'Excel/combined.csv'
 combined_data2 = pd.read_csv(lrpath2)
-
-print (combined_data2)
-
-"""
+combined_data = combined_data2.iloc[:,1:]
 cd1 = combined_data.set_index('Project Ref')
 
+print (cd1)
+"""
 testhist =  cd1['GIFA (m2)']
 
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(testhist)

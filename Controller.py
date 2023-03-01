@@ -706,7 +706,7 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3>Project 2: Linear Regression Model for Embodied Carbon</h3>", unsafe_allow_html=True)
 st.markdown("<h3>Situation</h3>", unsafe_allow_html=True)
 
-"""
+
 dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
 
 
@@ -744,4 +744,3 @@ st.pydeck_chart(deck)
 #st.plotly_chart(LR.graphtemp2, use_container_width=True)
 
 #st.write(lnr.df1)
-"""

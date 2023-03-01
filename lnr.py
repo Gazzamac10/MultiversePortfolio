@@ -6,7 +6,7 @@ from tools import SQLin
 from PIL import Image
 import numpy as np
 import pydeck as pdk
-
+import openpyexcel as op
 
 p = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 

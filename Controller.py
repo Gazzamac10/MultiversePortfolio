@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import streamlit as st
-import lnr
 from tools import graph_maker
 from tools import SQLin
 from tools import Statshelpers

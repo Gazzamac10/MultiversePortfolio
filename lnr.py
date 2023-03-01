@@ -8,9 +8,16 @@ import numpy as np
 import pydeck as pdk
 import openpyexcel as op
 
-p = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
+def makecsv(pa,t, name):
+    return t.to_csv(os.path.join(pa, str(name) + '.csv'))
 
-combined_data = pd.read_excel(p)
+#p = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
+#combined_data = pd.read_excel(p)
+#prs = 'Excel'
+pu = 'Excel/combined.csv'
+combined_data = pd.read_csv(pu)
+combined_data = combined_data.iloc[:,1:]
+
 cd1 = combined_data.set_index('Project Ref')
 
 def Remove_Outlier_Indices(df):
@@ -29,9 +36,8 @@ cd = cd1[nonOutlierList]
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
 
-
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 
 #print(cd.groupby('Construction Type')['Construction Type'].count())
 
-#print (df1.columns)
+print (df1.columns)

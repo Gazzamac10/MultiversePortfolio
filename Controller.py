@@ -761,4 +761,4 @@ df1 = pd.concat([cd, dummies], axis=1)
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 
 #print(cd.groupby('Construction Type')['Construction Type'].count())
-st.write(df1)
+#st.write(df1)

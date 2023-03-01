@@ -4,6 +4,7 @@ import numpy as np
 from tools import graph_maker
 import matplotlib.pyplot as plt
 #import seaborn as sns
+import openpyexcel as op
 
 #from statsmodels.graphics.gofplots import qqplot
 

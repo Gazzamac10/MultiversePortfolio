@@ -8,6 +8,7 @@ from PIL import Image
 import numpy as np
 #import seaborn as sns
 #import openpyexcel as op
+import openpyxl as op
 import matplotlib.pyplot as plt
 import pydeck as pdk
 

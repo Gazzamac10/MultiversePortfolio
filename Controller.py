@@ -4,6 +4,7 @@ import streamlit as st
 import lnr
 from tools import graph_maker
 from tools import SQLin
+from tools import Statshelpers
 from PIL import Image
 import numpy as np
 #import seaborn as sns
@@ -745,3 +746,20 @@ st.pydeck_chart(deck)
 
 #st.write(lnr.df1)
 
+lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
+combined_data = pd.read_excel(lrpath)
+
+cd1 = combined_data.set_index('Project Ref')
+
+testhist =  cd1['GIFA (m2)']
+
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(testhist)
+cd = cd1[nonOutlierList]
+
+dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
+df1 = pd.concat([cd, dummies], axis=1)
+
+#stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
+
+#print(cd.groupby('Construction Type')['Construction Type'].count())
+st.write(df1)

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
-#import lnr
+import lnr
 from tools import graph_maker
 from tools import SQLin
 from PIL import Image
@@ -745,8 +745,3 @@ st.pydeck_chart(deck)
 
 #st.write(lnr.df1)
 
-pu = 'Excel/combined.csv'
-combined_data = pd.read_csv(pu)
-combined_data = combined_data.iloc[:,1:]
-
-st.write(combined_data)

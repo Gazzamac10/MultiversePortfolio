@@ -748,6 +748,12 @@ st.pydeck_chart(deck)
 lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 combined_data = pd.read_excel(lrpath)
 
+lrpath2 = 'Excel/combined.csv'
+combined_data2 = pd.read_csv(lrpath2)
+
+print (combined_data2)
+
+"""
 cd1 = combined_data.set_index('Project Ref')
 
 testhist =  cd1['GIFA (m2)']
@@ -762,3 +768,4 @@ df1 = pd.concat([cd, dummies], axis=1)
 
 #print(cd.groupby('Construction Type')['Construction Type'].count())
 #st.write(df1)
+"""

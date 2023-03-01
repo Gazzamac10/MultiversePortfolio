@@ -24,7 +24,6 @@ import pydeck as pdk
 def makecsv(pa,t, name):
     return t.to_csv(os.path.join(pa, str(name) + '.csv'))
 
-
 st.set_page_config (layout="wide")
 
 # Add custom CSS styles

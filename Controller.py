@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
-import lnr
+#import lnr
 from tools import graph_maker
 from tools import SQLin
 from PIL import Image

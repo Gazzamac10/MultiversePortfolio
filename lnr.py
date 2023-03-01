@@ -1,16 +1,12 @@
 import os
 import pandas as pd
-import numpy as np
+import streamlit as st
 from tools import graph_maker
-import matplotlib.pyplot as plt
-#import seaborn as sns
-import openpyexcel as op
+from tools import SQLin
+from PIL import Image
+import numpy as np
+import pydeck as pdk
 
-#from statsmodels.graphics.gofplots import qqplot
-
-
-def makecsv(pa,t, name):
-    return t.to_csv(os.path.join(pa, str(name) + '.csv'))
 
 p = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 
@@ -24,6 +20,7 @@ def Remove_Outlier_Indices(df):
     trueList = ~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR)))
     return trueList
 
+
 testhist =  cd1['GIFA (m2)']
 
 nonOutlierList = Remove_Outlier_Indices(testhist)
@@ -34,19 +31,8 @@ graph88 = graph_maker.plotlyScatter2(cd,'Carbon A1-A3\n(kgCO2e)','Foundation Typ
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
 
-
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 
-print(cd.groupby('Construction Type')['Construction Type'].count())
+#print(cd.groupby('Construction Type')['Construction Type'].count())
 
-print (df1.columns)
-
-#prs = 'Excel'
-#makecsv(prs,postcodes,'postcodes')
-
-
-temp = df1.corr()
-temp2 = df1.iloc[:,:8]
-
-graphtemp2 = graph_maker.plotlyscattermatrix(temp2)
-
+#print (df1.columns)

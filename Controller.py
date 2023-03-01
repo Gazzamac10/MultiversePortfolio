@@ -1,32 +1,15 @@
 import os
-import ifcopenshell
-import ifcopenshell.util.element as Element
-import ifcopenshell.api
 import pandas as pd
-from logging import warning
 import streamlit as st
-from tools import ifchelper
-from tools import pandashelper
+import lnr
 from tools import graph_maker
-import sqlite3 as sq
 from tools import SQLin
 from PIL import Image
-import plotly.express as px
-import plotly.figure_factory as ff
 import numpy as np
-from tools import LR
 import seaborn as sns
 import openpyexcel as op
 import matplotlib.pyplot as plt
 import pydeck as pdk
-
-
-p = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
-
-combined_data = pd.read_excel(p)
-cd1 = combined_data.set_index('Project Ref')
-
-
 
 def makecsv(pa,t, name):
     return t.to_csv(os.path.join(pa, str(name) + '.csv'))
@@ -759,3 +742,4 @@ st.pydeck_chart(deck)
 #LR.graphtemp2.update_layout(height=1800)
 #st.plotly_chart(LR.graphtemp2, use_container_width=True)
 
+st.write(lnr.graph88)

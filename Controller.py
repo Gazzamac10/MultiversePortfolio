@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
+import lnr
 from tools import graph_maker
 from tools import SQLin
 from tools import Statshelpers
@@ -8,7 +9,6 @@ from PIL import Image
 import numpy as np
 #import seaborn as sns
 #import openpyexcel as op
-
 import matplotlib.pyplot as plt
 import pydeck as pdk
 
@@ -753,16 +753,7 @@ cd1 = combined_data.set_index('Project Ref')
 
 testhist =  cd1['GIFA (m2)']
 
-
-def Remove_Outlier_Indices(df):
-    Q1 = df.quantile(0.25)
-    Q3 = df.quantile(0.75)
-    IQR = Q3 - Q1
-    trueList = ~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR)))
-    return trueList
-
-
-nonOutlierList = Remove_Outlier_Indices(testhist)
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(testhist)
 cd = cd1[nonOutlierList]
 
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
-#import lnr
+import lnr
 from tools import graph_maker
 from tools import SQLin
 from PIL import Image
@@ -743,4 +743,4 @@ st.pydeck_chart(deck)
 #LR.graphtemp2.update_layout(height=1800)
 #st.plotly_chart(LR.graphtemp2, use_container_width=True)
 
-#st.write(lnr.df1)
+st.write(lnr.df1)

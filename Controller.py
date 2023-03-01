@@ -16,7 +16,7 @@ import plotly.figure_factory as ff
 import numpy as np
 from tools import LR
 #import seaborn as sns
-#import openpyexcel as op
+import openpyexcel as op
 import matplotlib.pyplot as plt
 import pydeck as pdk
 

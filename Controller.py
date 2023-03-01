@@ -11,8 +11,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pydeck as pdk
 
-def makecsv(pa,t, name):
-    return t.to_csv(os.path.join(pa, str(name) + '.csv'))
+def makecsv(t, name):
+    path = 'Excel'
+    return t.to_csv(os.path.join(path, str(name) + '.csv'))
 
 st.set_page_config (layout="wide")
 
@@ -739,12 +740,6 @@ deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox
 # Display the pydeck chart using st.pydeck_chart()
 st.pydeck_chart(deck)
 
-#st.write(LR.temp)
-#LR.graphtemp2.update_layout(height=1800)
-#st.plotly_chart(LR.graphtemp2, use_container_width=True)
-
-#st.write(lnr.df1)
-
 #lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 #combined_data = pd.read_excel(lrpath)
 
@@ -761,7 +756,13 @@ cd = cd1[nonOutlierList]
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
 
+makecsv(df1,'df1')
+
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 
 #print(cd.groupby('Construction Type')['Construction Type'].count())
-st.write(df1)
+
+graph88 = graph_maker.plotlyscattermatrix(df1.iloc[:,:6])
+graph88.update_layout(height=1200)
+st.plotly_chart(graph88, use_container_width=True)
+

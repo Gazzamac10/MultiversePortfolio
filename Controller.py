@@ -744,3 +744,9 @@ st.pydeck_chart(deck)
 #st.plotly_chart(LR.graphtemp2, use_container_width=True)
 
 #st.write(lnr.df1)
+
+pu = 'Excel/combined.csv'
+combined_data = pd.read_csv(pu)
+combined_data = combined_data.iloc[:,1:]
+
+st.write(combined_data)

@@ -753,8 +753,6 @@ combined_data2 = pd.read_csv(lrpath2)
 combined_data = combined_data2.iloc[:,1:]
 cd1 = combined_data.set_index('Project Ref')
 
-print (cd1)
-"""
 testhist =  cd1['GIFA (m2)']
 
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(testhist)
@@ -766,5 +764,4 @@ df1 = pd.concat([cd, dummies], axis=1)
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 
 #print(cd.groupby('Construction Type')['Construction Type'].count())
-#st.write(df1)
-"""
+st.write(df1)

@@ -759,13 +759,13 @@ cd = cd1[nonOutlierList]
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
 
-makecsv(df1,'df1')
+#makecsv(cd,'cd')
 
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 
 #print(cd.groupby('Construction Type')['Construction Type'].count())
 
-graph88 = graph_maker.plotlyscattermatrix(df1.iloc[:,:6])
+graph88 = graph_maker.plotlyscattermatrix(cd1.iloc[:,15:22])
 graph88.update_layout(height=1600)
 st.plotly_chart(graph88, use_container_width=True)
 

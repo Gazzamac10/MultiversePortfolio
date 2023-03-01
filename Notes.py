@@ -20,3 +20,8 @@
 
 #Show that Carbon a1-A3 is correlated with a1-a5 so I can choose to review one of them
 
+# Note that all the Carbon grapsh are correlated closely and so this can cause issues in the regression model
+#we don't want independant variables that are closely correlated to each other
+
+
+

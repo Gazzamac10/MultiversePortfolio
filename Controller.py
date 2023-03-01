@@ -763,6 +763,6 @@ makecsv(df1,'df1')
 #print(cd.groupby('Construction Type')['Construction Type'].count())
 
 graph88 = graph_maker.plotlyscattermatrix(df1.iloc[:,:6])
-graph88.update_layout(height=1200)
+graph88.update_layout(height=1600)
 st.plotly_chart(graph88, use_container_width=True)
 

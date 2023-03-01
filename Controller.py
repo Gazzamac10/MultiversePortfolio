@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import pydeck as pdk
 
 
-p = 'Excel/PM_Carbon_Database_23-03-01.csv'
+p = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 
 combined_data = pd.read_excel(p)
 cd1 = combined_data.set_index('Project Ref')
@@ -755,7 +755,7 @@ deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox
 # Display the pydeck chart using st.pydeck_chart()
 st.pydeck_chart(deck)
 
-st.write(LR.temp)
-LR.graphtemp2.update_layout(height=1800)
-st.plotly_chart(LR.graphtemp2, use_container_width=True)
+#st.write(LR.temp)
+#LR.graphtemp2.update_layout(height=1800)
+#st.plotly_chart(LR.graphtemp2, use_container_width=True)
 

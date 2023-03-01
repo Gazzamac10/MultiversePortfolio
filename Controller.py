@@ -745,8 +745,8 @@ st.pydeck_chart(deck)
 
 #st.write(lnr.df1)
 
-lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
-combined_data = pd.read_excel(lrpath)
+#lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
+#combined_data = pd.read_excel(lrpath)
 
 lrpath2 = 'Excel/combined.csv'
 combined_data2 = pd.read_csv(lrpath2)

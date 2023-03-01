@@ -16,6 +16,9 @@ def makecsv(t, name):
     return t.to_csv(os.path.join(path, str(name) + '.csv'))
 
 st.set_page_config (layout="wide")
+# Set the theme of the app
+#st.set_page_config(page_title="My Streamlit App", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded", theme="dark")
+
 
 # Add custom CSS styles
 st.markdown(

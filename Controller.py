@@ -15,10 +15,17 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import numpy as np
 from tools import LR
-#import seaborn as sns
+import seaborn as sns
 import openpyexcel as op
 import matplotlib.pyplot as plt
 import pydeck as pdk
+
+
+p = 'Excel/PM_Carbon_Database_23-03-01.csv'
+
+combined_data = pd.read_excel(p)
+cd1 = combined_data.set_index('Project Ref')
+
 
 
 def makecsv(pa,t, name):

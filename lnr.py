@@ -1,12 +1,4 @@
 import os
-import pandas as pd
-import streamlit as st
-from tools import graph_maker
-from tools import SQLin
-from PIL import Image
-import numpy as np
-import pydeck as pdk
-import openpyexcel as op
 
 def makecsv(pa,t, name):
     return t.to_csv(os.path.join(pa, str(name) + '.csv'))

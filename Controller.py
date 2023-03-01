@@ -742,4 +742,4 @@ st.pydeck_chart(deck)
 #LR.graphtemp2.update_layout(height=1800)
 #st.plotly_chart(LR.graphtemp2, use_container_width=True)
 
-st.write(lnr.graph88)
+st.write(lnr.df1)

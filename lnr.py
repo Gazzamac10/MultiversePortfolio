@@ -26,10 +26,9 @@ testhist =  cd1['GIFA (m2)']
 nonOutlierList = Remove_Outlier_Indices(testhist)
 cd = cd1[nonOutlierList]
 
-graph88 = graph_maker.plotlyScatter2(cd,'Carbon A1-A3\n(kgCO2e)','Foundation Type')
-
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
+
 
 #stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
 

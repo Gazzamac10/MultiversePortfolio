@@ -769,3 +769,12 @@ graph88 = graph_maker.plotlyscattermatrix(cd1.iloc[:,15:22])
 graph88.update_layout(height=1600)
 st.plotly_chart(graph88, use_container_width=True)
 
+print(df1.columns.tolist())
+
+graph89 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage',"GIFA (m2)")
+graph89.update_layout(height=500, width=300)
+st.plotly_chart(graph89, use_container_width=True)
+
+graph90 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage','Project Value (£m)')
+graph90.update_layout(height=500, width=300)
+st.plotly_chart(graph90, use_container_width=True)

@@ -158,12 +158,19 @@ def plotlyBar2(dataframe,x,y):
 
 def plotlyBox(dataframe,x):
     import plotly.express as px
-    fig = px.box(dataframe, x=dataframe[x],
-        color=dataframe[x],color_discrete_sequence=px.colors.carto.Earth)
+    fig = px.box(dataframe, y=dataframe[x],
+        color_discrete_sequence=px.colors.carto.Earth)
     fig.update_xaxes(showticklabels=False)  # Hide x axis ticks
     fig.update_yaxes(showticklabels=False)
     return fig
 
+def plotlyBox2(dataframe,x,y):
+    import plotly.express as px
+    fig = px.box(dataframe, x=dataframe[x],y=dataframe[y],
+        color_discrete_sequence=px.colors.carto.Aggrnyl)
+    fig.update_xaxes(showticklabels=False)  # Hide x axis ticks
+    fig.update_yaxes(showticklabels=False)
+    return fig
 
 def plotlyHist(dataframe,x):
     import plotly.express as px

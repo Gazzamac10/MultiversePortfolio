@@ -708,14 +708,16 @@ st.image(imageproject1K)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3>Project 2: Linear Regression Model for Embodied Carbon</h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3>Situation</h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 
 dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
-
-
 map = pd.DataFrame.from_dict(dict)
-
 
 # Define your pydeck chart
 layer = pdk.Layer(
@@ -741,7 +743,14 @@ view_state = pdk.ViewState(
 deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox://styles/mapbox/light-v9')
 
 # Display the pydeck chart using st.pydeck_chart()
-st.pydeck_chart(deck)
+#st.pydeck_chart(deck)
+
+
+
+
+
+
+
 
 #lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 #combined_data = pd.read_excel(lrpath)
@@ -758,6 +767,9 @@ cd = cd1[nonOutlierList]
 
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
+
+
+st.write(cd)
 
 #makecsv(cd,'cd')
 

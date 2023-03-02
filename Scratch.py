@@ -316,3 +316,34 @@ with col2:
     st.write("Structural Floors")
     graph2.update_layout(height=500)
     st.plotly_chart(graph400, use_container_width=True)
+
+
+
+dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
+map = pd.DataFrame.from_dict(dict)
+
+# Define your pydeck chart
+layer = pdk.Layer(
+    "ScatterplotLayer",
+    map,
+    get_position=["lon", "lat"],
+    get_color=[200, 30, 0, 160],
+    get_radius=1200,
+    pickable=True
+)
+
+view_state = pdk.ViewState(
+    longitude= 0.13750000,
+    latitude= 50.82083333,
+    zoom=6,
+    pitch=0,
+    bearing=-0,
+    height=500,
+    width=1000
+)
+
+# Combine the layer and viewport into a pydeck.Deck object
+deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox://styles/mapbox/light-v9')
+
+# Display the pydeck chart using st.pydeck_chart()
+#st.pydeck_chart(deck)

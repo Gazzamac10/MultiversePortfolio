@@ -716,42 +716,6 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 
-dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
-map = pd.DataFrame.from_dict(dict)
-
-# Define your pydeck chart
-layer = pdk.Layer(
-    "ScatterplotLayer",
-    map,
-    get_position=["lon", "lat"],
-    get_color=[200, 30, 0, 160],
-    get_radius=1200,
-    pickable=True
-)
-
-view_state = pdk.ViewState(
-    longitude= 0.13750000,
-    latitude= 50.82083333,
-    zoom=6,
-    pitch=0,
-    bearing=-0,
-    height=500,
-    width=1000
-)
-
-# Combine the layer and viewport into a pydeck.Deck object
-deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox://styles/mapbox/light-v9')
-
-# Display the pydeck chart using st.pydeck_chart()
-#st.pydeck_chart(deck)
-
-
-
-
-
-
-
-
 #lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 #combined_data = pd.read_excel(lrpath)
 
@@ -767,7 +731,6 @@ cd = cd1[nonOutlierList]
 
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
-
 
 st.write(cd)
 

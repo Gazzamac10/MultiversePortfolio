@@ -255,9 +255,9 @@ st.write("To access and automate the extraction of these data points, it is prop
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 st.write("Storage:")
-image3  = Image.open('Images/datastorage.jpg')
-resized_image = image3.resize((400, 300))
-st.image(resized_image)
+image3  = Image.open('Images/datacenter_triinti (1).jpg')
+resized_image = image3.resize((1500, 250))
+#st.image(resized_image)
 
 
 st.write("I encountered a major roadblock in regards to data storage. After speaking with a representative from the IT department, "
@@ -719,6 +719,8 @@ imageCarbonFactors  = Image.open('Images/Carbon Rates.png')
 resized_image = imageCarbonFactors.resize((2000, 600))
 st.image(imageCarbonFactors)
 
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 #lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 #combined_data = pd.read_excel(lrpath)
@@ -748,7 +750,7 @@ graph88 = graph_maker.plotlyscattermatrix(cd1.iloc[:,15:22])
 graph88.update_layout(height=1600)
 st.plotly_chart(graph88, use_container_width=True)
 
-print(df1.columns.tolist())
+#print(df1.columns.tolist())
 
 graph89 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage',"GIFA (m2)")
 graph89.update_layout(height=500, width=300)
@@ -757,3 +759,4 @@ st.plotly_chart(graph89, use_container_width=True)
 graph90 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage','Project Value (£m)')
 graph90.update_layout(height=500, width=300)
 st.plotly_chart(graph90, use_container_width=True)
+

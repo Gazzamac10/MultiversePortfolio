@@ -257,7 +257,7 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.write("Storage:")
 image3  = Image.open('Images/datastorage.jpg')
 resized_image = image3.resize((400, 300))
-#st.image(resized_image)
+st.image(resized_image)
 
 
 st.write("I encountered a major roadblock in regards to data storage. After speaking with a representative from the IT department, "

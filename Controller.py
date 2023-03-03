@@ -715,6 +715,10 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
+imageCarbonFactors  = Image.open('Images/Carbon Rates.png')
+resized_image = imageCarbonFactors.resize((2000, 600))
+st.image(imageCarbonFactors)
+
 
 #lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
 #combined_data = pd.read_excel(lrpath)

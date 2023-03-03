@@ -317,8 +317,6 @@ with col2:
     graph2.update_layout(height=500)
     st.plotly_chart(graph400, use_container_width=True)
 
-
-
 dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
 map = pd.DataFrame.from_dict(dict)
 

@@ -760,37 +760,3 @@ graph90 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage','Project Value 
 graph90.update_layout(height=500, width=300)
 st.plotly_chart(graph90, use_container_width=True)
 
-postcodes = pd.read_csv('Excel/ukpostcodes.csv/ukpostcodes.csv')
-
-#dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
-#map = pd.DataFrame.from_dict(dict)
-
-
-map = postcodes[['lat','lon']][15000:15200]
-
-
-# Define your pydeck chart
-layer = pdk.Layer(
-    "ScatterplotLayer",
-    map,
-    get_position=["lon", "lat"],
-    get_color=[200, 30, 0, 160],
-    get_radius=1200,
-    pickable=True
-)
-
-view_state = pdk.ViewState(
-    longitude= 0.13750000,
-    latitude= 50.82083333,
-    zoom=6,
-    pitch=0,
-    bearing=-0,
-    height=800,
-    width=1500
-)
-
-# Combine the layer and viewport into a pydeck.Deck object
-deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox://styles/mapbox/light-v9')
-
-# Display the pydeck chart using st.pydeck_chart()
-st.pydeck_chart(deck)

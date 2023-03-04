@@ -317,8 +317,18 @@ with col2:
     graph2.update_layout(height=500)
     st.plotly_chart(graph400, use_container_width=True)
 
-dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
-map = pd.DataFrame.from_dict(dict)
+
+
+
+
+postcodes = pd.read_csv('Excel/ukpostcodes.csv/ukpostcodes.csv')
+
+#dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}
+#map = pd.DataFrame.from_dict(dict)
+
+
+map = postcodes[['lat','lon']][15000:15200]
+
 
 # Define your pydeck chart
 layer = pdk.Layer(
@@ -336,8 +346,8 @@ view_state = pdk.ViewState(
     zoom=6,
     pitch=0,
     bearing=-0,
-    height=500,
-    width=1000
+    height=800,
+    width=1500
 )
 
 # Combine the layer and viewport into a pydeck.Deck object

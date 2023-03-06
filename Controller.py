@@ -786,6 +786,8 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
+
+
 cladding = df2.groupby('Cladding Type').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 
@@ -802,3 +804,9 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 #makecsv(dfdummies,'dfdummies')
+
+typecount = df2.groupby('Typology').count()['A1_A5_kgCO2e_msq'].reset_index()
+
+graph111 = graph_maker.plotlyBar2(typecount,'Typology','A1_A5_kgCO2e_msq')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)

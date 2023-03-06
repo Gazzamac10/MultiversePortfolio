@@ -786,4 +786,11 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
+cladding = df2.groupby('Cladding Type').sum()['Total A-C'].reset_index()
+
+
+graph111 = graph_maker.plotlyBar2(cladding,'Cladding Type','Total A-C')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)
+
 #makecsv(dfdummies,'dfdummies')

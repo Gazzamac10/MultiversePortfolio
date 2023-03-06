@@ -152,7 +152,7 @@ def plotlyBar2(dataframe,x,y):
         color=dataframe[x],color_discrete_sequence=px.colors.carto.Antique)
     fig.update_xaxes(showticklabels=True,)  # Hide x axis ticks
     fig.update_yaxes(showticklabels=True)
-    fig.update_layout(yaxis_range=[0,100])
+    #fig.update_layout(yaxis_range=[0,100])
     return fig
 
 
@@ -195,7 +195,7 @@ def plotlyScatter(dataframe,x):
     fig.update_xaxes(showticklabels=False)  # Hide x axis ticks
     fig.update_yaxes(showticklabels=False)
     return fig
-
+"""
 def plotlyScatter2(dataframe,x,y):
     import plotly.express as px
     fig = px.scatter(dataframe, x=dataframe[x], y=dataframe[y],
@@ -204,9 +204,23 @@ def plotlyScatter2(dataframe,x,y):
     fig.update_yaxes(showticklabels=True)
     fig.update_layout(yaxis_range=[0,100])
     return fig
+"""
+
+def plotlyScatter2(dataframe,x,y):
+    import plotly.express as px
+    fig = px.scatter(dataframe, x=dataframe[x], y=dataframe[y],
+        color=dataframe[x],color_discrete_sequence=px.colors.carto.Antique)
+    fig.update_xaxes(showticklabels=True,)  # Hide x axis ticks
+    fig.update_yaxes(showticklabels=True, autorange=True)
+    return fig
+
 
 def plotlyscattermatrix(dataframe):
     import plotly.express as px
     fig = px.scatter_matrix(dataframe)
     return fig
 
+def plotlyheatmap(dataframe):
+    import plotly.express as px
+    fig = px.imshow(dataframe)
+    return fig

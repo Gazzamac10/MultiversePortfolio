@@ -355,3 +355,42 @@ deck = pdk.Deck(layers=[layer], initial_view_state=view_state, map_style='mapbox
 
 # Display the pydeck chart using st.pydeck_chart()
 #st.pydeck_chart(deck)
+
+
+#lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
+#combined_data = pd.read_excel(lrpath)
+
+lrpath2 = 'Excel/combined.csv'
+combined_data2 = pd.read_csv(lrpath2)
+combined_data = combined_data2.iloc[:,1:]
+cd1 = combined_data.set_index('Project Ref')
+
+testhist =  cd1['GIFA (m2)']
+
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(testhist)
+cd = cd1[nonOutlierList]
+
+dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
+df1 = pd.concat([cd, dummies], axis=1)
+
+st.write(cd)
+
+#makecsv(cd,'cd')
+
+#stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
+
+#print(cd.groupby('Construction Type')['Construction Type'].count())
+
+graph88 = graph_maker.plotlyscattermatrix(cd1.iloc[:,15:22])
+graph88.update_layout(height=1600)
+st.plotly_chart(graph88, use_container_width=True)
+
+#print(df1.columns.tolist())
+
+graph89 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage',"GIFA (m2)")
+graph89.update_layout(height=500, width=300)
+st.plotly_chart(graph89, use_container_width=True)
+
+graph90 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage','Project Value (£m)')
+graph90.update_layout(height=500, width=300)
+st.plotly_chart(graph90, use_container_width=True)

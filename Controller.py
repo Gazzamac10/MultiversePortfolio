@@ -722,41 +722,68 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-#lrpath = 'Excel/PM_Carbon_Database_23-03-01.xlsx'
-#combined_data = pd.read_excel(lrpath)
+lrpath2 = 'Excel/EcoZeroGenerated.csv'
+df1 = pd.read_csv(lrpath2)
 
-lrpath2 = 'Excel/combined.csv'
-combined_data2 = pd.read_csv(lrpath2)
-combined_data = combined_data2.iloc[:,1:]
-cd1 = combined_data.set_index('Project Ref')
+dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
+df = dfa.iloc[:,1:].reset_index()
+df = df.drop('index', axis=1).rename_axis('Project No')
+df = df.drop(['D'], axis=1)
 
-testhist =  cd1['GIFA (m2)']
+heat = df.corr()
 
-nonOutlierList = Statshelpers.Remove_Outlier_Indices(testhist)
-cd = cd1[nonOutlierList]
-
-dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
-df1 = pd.concat([cd, dummies], axis=1)
-
-st.write(cd)
-
-#makecsv(cd,'cd')
-
-#stagemean = df1.groupby('Calculation Design\nStage').mean()['Carbon A1-A3\n(kgCO2e)']
-
-#print(cd.groupby('Construction Type')['Construction Type'].count())
-
-graph88 = graph_maker.plotlyscattermatrix(cd1.iloc[:,15:22])
+graph88 = graph_maker.plotlyheatmap(heat)
 graph88.update_layout(height=1600)
 st.plotly_chart(graph88, use_container_width=True)
 
-#print(df1.columns.tolist())
-
-graph89 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage',"GIFA (m2)")
+graph89 = graph_maker.plotlyBox2(df,'Typology',"GIA")
 graph89.update_layout(height=500, width=300)
 st.plotly_chart(graph89, use_container_width=True)
 
-graph90 = graph_maker.plotlyBox2(df1,'Calculation Design\nStage','Project Value (£m)')
+graph90 = graph_maker.plotlyBox2(df,'Typology',"Cost")
 graph90.update_layout(height=500, width=300)
 st.plotly_chart(graph90, use_container_width=True)
 
+graph88 = graph_maker.plotlyscattermatrix(df)
+graph88.update_layout(height=1600)
+st.plotly_chart(graph88, use_container_width=True)
+
+st.write(df.corr())
+
+graph88 = graph_maker.plotlyscattermatrix(df.iloc[:,:7])
+graph88.update_layout(height=1600)
+st.plotly_chart(graph88, use_container_width=True)
+
+graph111 = graph_maker.plotlyScatter2(df,'Total A-C','Total A1-A5w')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)
+
+df2 = df.iloc[:,6:-1]
+dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Concrete Mix','Has Basement','Has Transfer Deck','Cladding Type'])
+
+graph88 = graph_maker.plotlyheatmap(dfdummies.corr())
+graph88.update_layout(height=1600)
+st.plotly_chart(graph88, use_container_width=True)
+
+graph111 = graph_maker.plotlyScatter2(dfdummies,'Total Kg','Total A-C')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)
+
+graph111 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_kgCO2e_msq')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)
+
+test = df2.groupby('Typology').sum()['A1_A5_kgCO2e_msq'].reset_index()
+
+graph111 = graph_maker.plotlyBar2(test,'Typology','A1_A5_kgCO2e_msq')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)
+
+Basement = df2.groupby('Has Basement').sum()['Total A-C'].reset_index()
+
+graph111 = graph_maker.plotlyBar2(Basement,'Has Basement','Total A-C')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)
+
+
+#makecsv(dfdummies,'dfdummies')

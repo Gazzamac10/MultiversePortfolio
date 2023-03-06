@@ -773,20 +773,20 @@ graph111 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_kgCO2e
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
-test = df2.groupby('Typology').sum()['A1_A5_kgCO2e_msq'].reset_index()
+test = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 graph111 = graph_maker.plotlyBar2(test,'Typology','A1_A5_kgCO2e_msq')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
-Basement = df2.groupby('Has Basement').sum()['Total A-C'].reset_index()
+Basement = df2.groupby('Has Basement').mean()['Total A-C'].reset_index()
 
 graph111 = graph_maker.plotlyBar2(Basement,'Has Basement','Total A-C')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
-cladding = df2.groupby('Cladding Type').sum()['Total A-C'].reset_index()
+cladding = df2.groupby('Cladding Type').mean()['Total A-C'].reset_index()
 
 
 graph111 = graph_maker.plotlyBar2(cladding,'Cladding Type','Total A-C')
@@ -794,7 +794,7 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
-buildinguse = df2.groupby('Building Use').sum()['Total A-C'].reset_index()
+buildinguse = df2.groupby('Building Use').mean()['Total A-C'].reset_index()
 
 
 graph111 = graph_maker.plotlyBar2(buildinguse,'Building Use','Total A-C')

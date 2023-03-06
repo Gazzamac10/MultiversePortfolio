@@ -786,18 +786,18 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
-cladding = df2.groupby('Cladding Type').mean()['Total A-C'].reset_index()
+cladding = df2.groupby('Cladding Type').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 
-graph111 = graph_maker.plotlyBar2(cladding,'Cladding Type','Total A-C')
+graph111 = graph_maker.plotlyBar2(cladding,'Cladding Type','A1_A5_kgCO2e_msq')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
-buildinguse = df2.groupby('Building Use').mean()['Total A-C'].reset_index()
+buildinguse = df2.groupby('Building Use').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 
-graph111 = graph_maker.plotlyBar2(buildinguse,'Building Use','Total A-C')
+graph111 = graph_maker.plotlyBar2(buildinguse,'Building Use','A1_A5_kgCO2e_msq')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 

@@ -722,7 +722,7 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated.csv'
+lrpath2 = 'Excel/EcoZeroGenerated2.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
@@ -730,83 +730,97 @@ df = dfa.iloc[:,1:].reset_index()
 df = df.drop('index', axis=1).rename_axis('Project No')
 df = df.drop(['D'], axis=1)
 
-heat = df.corr()
+outliersample1 =  df['GIA']
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample1)
+dfclean1 = df[nonOutlierList]
 
-graph88 = graph_maker.plotlyheatmap(heat)
-graph88.update_layout(height=1600)
-st.plotly_chart(graph88, use_container_width=True)
+outliersample2 =  dfclean1['Cost']
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample2)
+dfclean = dfclean1[nonOutlierList]
 
-graph89 = graph_maker.plotlyBox2(df,'Typology',"GIA")
-graph89.update_layout(height=500, width=300)
-st.plotly_chart(graph89, use_container_width=True)
+heatall = df.corr()
 
-graph90 = graph_maker.plotlyBox2(df,'Typology',"Cost")
-graph90.update_layout(height=500, width=300)
-st.plotly_chart(graph90, use_container_width=True)
+heatall1 = graph_maker.plotlyheatmap(heatall)
+heatall1.update_layout(height=1600)
+st.plotly_chart(heatall1, use_container_width=True)
 
-graph88 = graph_maker.plotlyscattermatrix(df)
-graph88.update_layout(height=1600)
-st.plotly_chart(graph88, use_container_width=True)
+TypGiaBOX = graph_maker.plotlyBox2(df,'Typology',"GIA")
+TypGiaBOX.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaBOX, use_container_width=True)
+
+TypGiaBOX = graph_maker.plotlyBox2(dfclean1,'Typology',"GIA")
+TypGiaBOX.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaBOX, use_container_width=True)
+
+TypGiaCOST = graph_maker.plotlyBox2(dfclean1,'Typology',"Cost")
+TypGiaCOST.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaCOST, use_container_width=True)
+
+TypGiaCOST = graph_maker.plotlyBox2(dfclean,'Typology',"Cost")
+TypGiaCOST.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaCOST, use_container_width=True)
+
+
+scatterALL = graph_maker.plotlyscattermatrix(dfclean)
+scatterALL.update_layout(height=1600)
+st.plotly_chart(scatterALL, use_container_width=True)
 
 st.write(df.corr())
 
-graph88 = graph_maker.plotlyscattermatrix(df.iloc[:,:7])
-graph88.update_layout(height=1600)
-st.plotly_chart(graph88, use_container_width=True)
+scatterCARB = graph_maker.plotlyscattermatrix(dfclean.iloc[:,:7])
+scatterCARB.update_layout(height=1600)
+st.plotly_chart(scatterCARB, use_container_width=True)
 
-graph111 = graph_maker.plotlyScatter2(df,'Total A-C','Total A1-A5w')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
+scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean,'Total A-C','Total A1-A5w')
+scatteretotalACvstotalA5.update_layout(height=600)
+st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
-df2 = df.iloc[:,6:-1]
+df2 = dfclean.iloc[:,6:-1]
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Concrete Mix','Has Basement','Has Transfer Deck','Cladding Type'])
 
-graph88 = graph_maker.plotlyheatmap(dfdummies.corr())
-graph88.update_layout(height=1600)
-st.plotly_chart(graph88, use_container_width=True)
+df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
+df2corr.update_layout(height=1600)
+st.plotly_chart(df2corr, use_container_width=True)
 
-graph111 = graph_maker.plotlyScatter2(dfdummies,'Total Kg','Total A-C')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
+scattertotalKGvstotalAC = graph_maker.plotlyScatter2(dfdummies,'Total Kg','Total A-C')
+scattertotalKGvstotalAC.update_layout(height=600)
+st.plotly_chart(scattertotalKGvstotalAC, use_container_width=True)
 
-graph111 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_kgCO2e_msq')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
+HasbasevsA1A5 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_kgCO2e_msq')
+HasbasevsA1A5.update_layout(height=600)
+st.plotly_chart(HasbasevsA1A5, use_container_width=True)
 
-test = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
+typA1A5average = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
-graph111 = graph_maker.plotlyBar2(test,'Typology','A1_A5_kgCO2e_msq')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
+typA1A5average = graph_maker.plotlyBar2(typA1A5average,'Typology','A1_A5_kgCO2e_msq')
+typA1A5average.update_layout(height=600)
+st.plotly_chart(typA1A5average, use_container_width=True)
 
 Basement = df2.groupby('Has Basement').mean()['Total A-C'].reset_index()
 
-graph111 = graph_maker.plotlyBar2(Basement,'Has Basement','Total A-C')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
-
-
+basementvsAC = graph_maker.plotlyBar2(Basement,'Has Basement','Total A-C')
+basementvsAC.update_layout(height=600)
+st.plotly_chart(basementvsAC, use_container_width=True)
 
 
 cladding = df2.groupby('Cladding Type').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
-
-graph111 = graph_maker.plotlyBar2(cladding,'Cladding Type','A1_A5_kgCO2e_msq')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
+claddingA5average = graph_maker.plotlyBar2(cladding,'Cladding Type','A1_A5_kgCO2e_msq')
+claddingA5average.update_layout(height=600)
+st.plotly_chart(claddingA5average, use_container_width=True)
 
 
 buildinguse = df2.groupby('Building Use').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
-
-graph111 = graph_maker.plotlyBar2(buildinguse,'Building Use','A1_A5_kgCO2e_msq')
-graph111.update_layout(height=600)
-st.plotly_chart(graph111, use_container_width=True)
+usevsA5average = graph_maker.plotlyBar2(buildinguse,'Building Use','A1_A5_kgCO2e_msq')
+usevsA5average.update_layout(height=600)
+st.plotly_chart(usevsA5average, use_container_width=True)
 
 #makecsv(dfdummies,'dfdummies')
 
-typecount = df2.groupby('Typology').count()['A1_A5_kgCO2e_msq'].reset_index()
+typecount = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 graph111 = graph_maker.plotlyBar2(typecount,'Typology','A1_A5_kgCO2e_msq')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
+

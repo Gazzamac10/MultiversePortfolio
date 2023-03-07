@@ -24,4 +24,9 @@
 #we don't want independant variables that are closely correlated to each other
 
 
+#descriptive analyisis presecriptive analysis of the eco.zero tool.
+#explain how it will be a good prescriptive analaysis of the the tool tiself but not of the real world data
+#because of the randomised nature of the controlling parameters, it means there are combinations that would never have been used in the real world
+# and the eco.zero tool is there for that exact reason
+
 

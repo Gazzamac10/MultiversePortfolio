@@ -780,6 +780,7 @@ df2 = df.drop(columns=['Total A-C','Building Height'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
 
+dfdummies200 = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
 
 df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
@@ -808,14 +809,13 @@ basementvsA1A5.update_layout(height=600)
 st.plotly_chart(basementvsA1A5, use_container_width=True)
 
 
-
 buildinguse = df2.groupby('Building Use').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 usevsA5average = graph_maker.plotlyBar2(buildinguse,'Building Use','A1_A5_kgCO2e_msq')
 usevsA5average.update_layout(height=600)
 st.plotly_chart(usevsA5average, use_container_width=True)
 
-#makecsv(dfdummies,'dfdummies')
+makecsv(dfdummies,'dfdummies')
 
 typecount = df2.groupby('A1_A5_kgCO2e_msq').mean()['Total A1-A5w'].reset_index()
 
@@ -823,5 +823,3 @@ graph111 = graph_maker.plotlyScatter2(typecount,'A1_A5_kgCO2e_msq','Total A1-A5w
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
-
-rest = pd.read_csv('Excel/X2.csv')

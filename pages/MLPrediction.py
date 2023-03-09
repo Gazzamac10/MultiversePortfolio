@@ -100,8 +100,7 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 df = ct.dfdummies
 df = df.iloc[:,5:]
 
-
-makecsv(df,'df')
+ct.dfdummies200
 
 # target series
 y = df['Total A1-A5w']

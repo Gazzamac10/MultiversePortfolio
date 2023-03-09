@@ -106,10 +106,10 @@ st.write('Predicted Total A1-A5w: '+str(lr.predict([[713042111.249708,67631.0191
 
 
 # target series
-y2 = df['Total A1-A5w']
+y2 = df['A1_A5_kgCO2e_msq']
 
 # predictor matrix
-X2 = df[['GIA','Storeys','Typology_PT RC Flat Slab','Concrete Mix_C32/40 - 75% GGBS','Building Use_Healthcare','Has Basement_Yes']]
+X2 = df[['Total A1-A5w','GIA','Storeys','Typology_PT RC Flat Slab','Concrete Mix_C32/40 - 75% GGBS','Building Use_Healthcare','Has Basement_Yes','Has Transfer Deck_Yes']]
 
 #lr2=LinearRegression()
 #lr2.fit(X2,y2)

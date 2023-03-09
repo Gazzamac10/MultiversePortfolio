@@ -776,10 +776,10 @@ scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
 df2 = dfclean.iloc[:,5:-1]
+df2 = df.drop(columns=['Total A-C','Building Height'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Concrete Mix','Has Basement','Has Transfer Deck','Cladding Type'])
 
-makecsv(dfdummies,'dfdummies')
 
 df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
@@ -815,12 +815,11 @@ claddingA5average.update_layout(height=600)
 st.plotly_chart(claddingA5average, use_container_width=True)
 
 
-storeysHeight = df2.groupby('Storeyse').mean()['Building Height'].reset_index()
+storeysHeight = df2.groupby('Storeys').mean()['Building Height'].reset_index()
 
-claddingA5average = graph_maker.plotlyBar2(cladding,'Cladding Type','A1_A5_kgCO2e_msq')
+claddingA5average = graph_maker.plotlyScatter2(storeysHeight,'Storeys','Building Height')
 claddingA5average.update_layout(height=600)
 st.plotly_chart(claddingA5average, use_container_width=True)
-
 
 
 buildinguse = df2.groupby('Building Use').mean()['A1_A5_kgCO2e_msq'].reset_index()
@@ -831,9 +830,9 @@ st.plotly_chart(usevsA5average, use_container_width=True)
 
 #makecsv(dfdummies,'dfdummies')
 
-typecount = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
+typecount = df2.groupby('A1_A5_kgCO2e_msq').mean()['Total A1-A5w'].reset_index()
 
-graph111 = graph_maker.plotlyBar2(typecount,'Typology','A1_A5_kgCO2e_msq')
+graph111 = graph_maker.plotlyScatter2(typecount,'A1_A5_kgCO2e_msq','Total A1-A5w')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 

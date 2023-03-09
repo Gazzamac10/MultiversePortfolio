@@ -722,7 +722,7 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated2.csv'
+lrpath2 = 'Excel/EcoZeroGenerated3.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
@@ -778,16 +778,16 @@ st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 df2 = dfclean.iloc[:,5:-1]
 df2 = df.drop(columns=['Total A-C','Building Height'])
 
-dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Concrete Mix','Has Basement','Has Transfer Deck','Cladding Type'])
+dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
 
 
 df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
 st.plotly_chart(df2corr, use_container_width=True)
 
-scattertotalKGvstotalAC = graph_maker.plotlyScatter2(dfdummies,'Total Kg','Total A-C')
-scattertotalKGvstotalAC.update_layout(height=600)
-st.plotly_chart(scattertotalKGvstotalAC, use_container_width=True)
+scattertotalKGvstotalA1A5 = graph_maker.plotlyScatter2(dfdummies,'Total Kg','Total A1-A5w')
+scattertotalKGvstotalA1A5.update_layout(height=600)
+st.plotly_chart(scattertotalKGvstotalA1A5, use_container_width=True)
 
 HasbasevsA1A5 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_kgCO2e_msq')
 HasbasevsA1A5.update_layout(height=600)
@@ -801,25 +801,12 @@ typA1A5average.update_layout(height=600)
 st.plotly_chart(typA1A5average, use_container_width=True)
 
 
-Basement = df2.groupby('Has Basement').mean()['Total A-C'].reset_index()
+Basement = df2.groupby('Has Basement').mean()['Total A1-A5w'].reset_index()
 
-basementvsAC = graph_maker.plotlyBar2(Basement,'Has Basement','Total A-C')
-basementvsAC.update_layout(height=600)
-st.plotly_chart(basementvsAC, use_container_width=True)
+basementvsA1A5 = graph_maker.plotlyBar2(Basement,'Has Basement','Total A1-A5w')
+basementvsA1A5.update_layout(height=600)
+st.plotly_chart(basementvsA1A5, use_container_width=True)
 
-
-cladding = df2.groupby('Cladding Type').mean()['A1_A5_kgCO2e_msq'].reset_index()
-
-claddingA5average = graph_maker.plotlyBar2(cladding,'Cladding Type','A1_A5_kgCO2e_msq')
-claddingA5average.update_layout(height=600)
-st.plotly_chart(claddingA5average, use_container_width=True)
-
-
-storeysHeight = df2.groupby('Storeys').mean()['Building Height'].reset_index()
-
-claddingA5average = graph_maker.plotlyScatter2(storeysHeight,'Storeys','Building Height')
-claddingA5average.update_layout(height=600)
-st.plotly_chart(claddingA5average, use_container_width=True)
 
 
 buildinguse = df2.groupby('Building Use').mean()['A1_A5_kgCO2e_msq'].reset_index()
@@ -837,3 +824,4 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
+rest = pd.read_csv('Excel/X2.csv')

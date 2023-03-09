@@ -775,7 +775,8 @@ scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean,'Total A-C','Total
 scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
-df2 = dfclean.iloc[:,6:-1]
+df2 = dfclean.iloc[:,5:-1]
+
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Concrete Mix','Has Basement','Has Transfer Deck','Cladding Type'])
 
 makecsv(dfdummies,'dfdummies')

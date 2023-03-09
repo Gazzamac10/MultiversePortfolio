@@ -10,6 +10,8 @@ import numpy as np
 #import openpyexcel as op
 import matplotlib.pyplot as plt
 import pydeck as pdk
+from sklearn.linear_model import LinearRegression
+
 
 st.set_page_config(
         page_title="MLPredictor",
@@ -88,7 +90,16 @@ resized_image = image1.resize((1800, 800))
 st.image(image1)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-
 df = pd.read_csv('Excel/dfdummies.csv')
 
-st.write(df)
+
+# target series
+y = df['A1_A5_kgCO2e_msq']
+
+# predictor matrix
+X = df[['Total Kg']]
+
+lr=LinearRegression()
+lr.fit(X,y)
+
+st.write(lr.coef_)

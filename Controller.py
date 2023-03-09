@@ -778,6 +778,8 @@ st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 df2 = dfclean.iloc[:,6:-1]
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Concrete Mix','Has Basement','Has Transfer Deck','Cladding Type'])
 
+makecsv(dfdummies,'dfdummies')
+
 df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
 st.plotly_chart(df2corr, use_container_width=True)
@@ -790,11 +792,13 @@ HasbasevsA1A5 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_k
 HasbasevsA1A5.update_layout(height=600)
 st.plotly_chart(HasbasevsA1A5, use_container_width=True)
 
+
 typA1A5average = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 typA1A5average = graph_maker.plotlyBar2(typA1A5average,'Typology','A1_A5_kgCO2e_msq')
 typA1A5average.update_layout(height=600)
 st.plotly_chart(typA1A5average, use_container_width=True)
+
 
 Basement = df2.groupby('Has Basement').mean()['Total A-C'].reset_index()
 
@@ -823,4 +827,5 @@ typecount = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
 graph111 = graph_maker.plotlyBar2(typecount,'Typology','A1_A5_kgCO2e_msq')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
+
 

@@ -83,9 +83,9 @@ st.markdown(
 # Add title
 st.header("ML Predictor")
 # Add image
-#image1  = Image.open('Images/ML1.jpg')
-#resized_image = image1.resize((1800, 800))
-#st.image(image1)
+image1  = Image.open('Images/ML1.jpg')
+resized_image = image1.resize((1800, 800))
+st.image(image1)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 

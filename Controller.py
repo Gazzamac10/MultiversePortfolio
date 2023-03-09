@@ -815,6 +815,14 @@ claddingA5average.update_layout(height=600)
 st.plotly_chart(claddingA5average, use_container_width=True)
 
 
+storeysHeight = df2.groupby('Storeyse').mean()['Building Height'].reset_index()
+
+claddingA5average = graph_maker.plotlyBar2(cladding,'Cladding Type','A1_A5_kgCO2e_msq')
+claddingA5average.update_layout(height=600)
+st.plotly_chart(claddingA5average, use_container_width=True)
+
+
+
 buildinguse = df2.groupby('Building Use').mean()['A1_A5_kgCO2e_msq'].reset_index()
 
 usevsA5average = graph_maker.plotlyBar2(buildinguse,'Building Use','A1_A5_kgCO2e_msq')

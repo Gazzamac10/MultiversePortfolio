@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pydeck as pdk
 from sklearn.linear_model import LinearRegression
-
+from sklearn.model_selection import train_test_split
 
 st.set_page_config(
         page_title="MLPredictor",
@@ -94,12 +94,38 @@ df = pd.read_csv('Excel/dfdummies.csv')
 
 
 # target series
-y = df['A1_A5_kgCO2e_msq']
+y = df['Total A1-A5w']
 
 # predictor matrix
-X = df[['Total Kg']]
+X = df[['Total Kg','Total A-C']]
 
 lr=LinearRegression()
 lr.fit(X,y)
 
-st.write(lr.coef_)
+st.write('Predicted Total A1-A5w: '+str(lr.predict([[713042111.249708,67631.0191063877]])))
+
+
+# target series
+y2 = df['Total A1-A5w']
+
+# predictor matrix
+X2 = df[['GIA','Storeys','Typology_PT RC Flat Slab','Concrete Mix_C32/40 - 75% GGBS','Building Use_Healthcare','Has Basement_Yes']]
+
+#lr2=LinearRegression()
+#lr2.fit(X2,y2)
+
+
+X_train, X_test, y_train, y_test = train_test_split(X2,y2,train_size=0.8,random_state=100)
+
+lr3=LinearRegression()
+lr3.fit(X_train,y_train)
+
+trainscore2 = lr3.score(X_train,y_train)
+testscore2 = lr3.score(X_test,y_test)
+
+st.write('Training score: ' + str(trainscore2))
+st.write('Testing score: ' + str(testscore2))
+
+dif = testscore2-trainscore2
+
+st.write(dif)

@@ -858,7 +858,7 @@ y2 = dfml2['A1_A5_kgCO2e_msq']
 # predictor matrix
 
 
-X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Building Use_Education',
+X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
          'Building Use_Healthcare','Building Use_Office','Building Use_Residential','Grid_X','Grid_Y','Bays_X','Bays_Y',
          'Typology_CLT, Glulam and Steel Column Hybrid','Typology_Composite Cell Beams with Metal Decking',
          'Typology_Composite Rolled Steel with Metal Decking','Typology_Non-Composite Rolled Steel with PCC Planks',

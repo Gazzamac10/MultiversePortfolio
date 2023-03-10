@@ -724,7 +724,7 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated6.csv'
+lrpath2 = 'Excel/EcoZeroGenerated7.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
@@ -790,11 +790,11 @@ scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
 df2 = dfclean3.iloc[:,5:]
-df2 = df2.drop(columns=['Total A-C','Building Height'])
+df2 = df2.drop(columns=['Total A-C'])
 
-dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
+dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement'])
 
-#st.write(dfdummies)
+#st.write(df2)
 
 df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
@@ -845,7 +845,8 @@ st.header("ML Predictor")
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 dfml1 = dfdummies
-dfml2 = dfml1.drop(columns=['Has Basement_No','Has Transfer Deck_No'])
+dfml1a = dfml1.drop(columns=['Has Basement_No','Grid_X','Grid_Y','Bays_X','Bays_Y'])
+dfml2 = dfml1.drop(columns=['Has Basement_No'])
 
 
 st.write(dfml2)
@@ -854,7 +855,7 @@ st.write(dfml2)
 y2 = dfml2['A1_A5_kgCO2e_msq']
 # predictor matrix
 """
-X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Grid_X','Grid_Y','Building Use_Education',
+X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Building Use_Education',
          'Building Use_Healthcare','Building Use_Office','Building Use_Residential',
          'Typology_CLT, Glulam and Steel Column Hybrid','Typology_Composite Cell Beams with Metal Decking',
          'Typology_Composite Rolled Steel with Metal Decking','Typology_Non-Composite Rolled Steel with PCC Planks',
@@ -862,7 +863,8 @@ X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Grid_X',
          'Typology_RC Flat Slab','Typology_RC Rib Slab','Typology_Steel Frame with CLT Slabs','Typology_Two-way RC Slab']]
 """
 
-X2 = dfml2[['GIA','Storeys','Cost']]
+X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Building Use_Education']]
+
 
 X_train, X_test, y_train, y_test = train_test_split(X2,y2,train_size=0.8,random_state=100)
 

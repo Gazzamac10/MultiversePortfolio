@@ -780,8 +780,6 @@ df2 = df.drop(columns=['Total A-C','Building Height'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
 
-dfdummies200 = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
-
 df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
 st.plotly_chart(df2corr, use_container_width=True)

@@ -20,12 +20,6 @@ def makecsv(t, name):
     return t.to_csv(os.path.join(path, str(name) + '.csv'))
 
 
-st.set_page_config(
-        page_title="MLPredictor",
-        layout="wide",
-        initial_sidebar_state="expanded",
-)
-
 # Add custom CSS styles
 st.markdown(
     """
@@ -99,8 +93,7 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 df = ct.dfdummies
 df = df.iloc[:,5:]
-
-ct.dfdummies200
+df = df.drop(columns=['Has Basement_No','Has Transfer Deck_No'])
 
 # target series
 y = df['Total A1-A5w']
@@ -115,18 +108,23 @@ st.write('Predicted Total A1-A5w: '+str(lr.predict([[713042111.249708]])))
 
 
 # target series
-y2 = df['Total A1-A5w']
+y2 = df['A1_A5_kgCO2e_msq']
 
 # predictor matrix
 #X2 = df[['GIA']]
-#X2 = df[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Grid_X','Building Use_Education',
-         #'Building Use_Healthcare','Building Use_Office','Building Use_Residential']]
+X2 = df[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Grid_X','Building Use_Education',
+         'Building Use_Healthcare','Building Use_Office','Building Use_Residential',
+         'Typology_CLT, Glulam and Steel Column Hybrid','Typology_Composite Cell Beams with Metal Decking',
+         'Typology_Composite Rolled Steel with Metal Decking','Typology_Non-Composite Rolled Steel with PCC Planks',
+         'Typology_One-Way Spanning RC','Typology_PT RC Flat Slab','Typology_Precast Hollowcore with In-situ RC Beams',
+         'Typology_RC Flat Slab','Typology_RC Rib Slab','Typology_Steel Frame with CLT Slabs','Typology_Two-way RC Slab']]
 
-X2 = df[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Total Kg']]
+
+#X2 = df[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes']]
 
 #X2 = df.drop(columns=['A1_A5_kgCO2e_msq','Grid_Y','Total A1-A5w','Grid_X','A5atCO2'])
 
-st.write(df.columns)
+st.write(df)
 
 #makecsv(X2,'X2')
 
@@ -148,10 +146,8 @@ lr4=LinearRegression()
 lr4.fit(X_train,y_train)
 
 
-y4 = df['Total A1-A5w']
-
-#preds = lr4.predict([[364500,24,1,1,9,0,1,0,0]])
-preds = lr4.predict([[364500,24,1,1,713042111.249708]])
+preds = lr4.predict([[319464,30,0,1,9,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0]])
+#preds = lr4.predict([[278460,13,1,1]])
 
 st.write(preds)
 

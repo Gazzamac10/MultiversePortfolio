@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import pydeck as pdk
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
 
 def makecsv(t, name):
     path = 'Excel'
@@ -724,7 +726,7 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated7.csv'
+lrpath2 = 'Excel/EcoZeroGenerated8.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
@@ -849,22 +851,22 @@ dfml1a = dfml1.drop(columns=['Has Basement_No','Grid_X','Grid_Y','Bays_X','Bays_
 dfml2 = dfml1.drop(columns=['Has Basement_No'])
 
 
-st.write(dfml2)
+st.write(dfml2.columns)
 
 # target series
 y2 = dfml2['A1_A5_kgCO2e_msq']
 # predictor matrix
-"""
+
+
 X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Building Use_Education',
-         'Building Use_Healthcare','Building Use_Office','Building Use_Residential',
+         'Building Use_Healthcare','Building Use_Office','Building Use_Residential','Grid_X','Grid_Y','Bays_X','Bays_Y',
          'Typology_CLT, Glulam and Steel Column Hybrid','Typology_Composite Cell Beams with Metal Decking',
          'Typology_Composite Rolled Steel with Metal Decking','Typology_Non-Composite Rolled Steel with PCC Planks',
          'Typology_One-Way Spanning RC','Typology_PT RC Flat Slab','Typology_Precast Hollowcore with In-situ RC Beams',
          'Typology_RC Flat Slab','Typology_RC Rib Slab','Typology_Steel Frame with CLT Slabs','Typology_Two-way RC Slab']]
-"""
 
-X2 = dfml2[['GIA','Storeys','Has Basement_Yes','Building Use_Education']]
-
+#X2 = dfml2[['GIA','Storeys','Building Use_Education','Building Use_Healthcare',
+            #'Building Use_Office','Building Use_Residential','Has Basement_Yes']]
 
 X_train, X_test, y_train, y_test = train_test_split(X2,y2,train_size=0.8,random_state=100)
 
@@ -886,9 +888,9 @@ lr4.fit(X_train,y_train)
 #preds = lr4.predict([[25088,2,0,0,12,12,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0]])
 
 actuals = y2
-predteest = lr4.predict(X2)
+preds = lr4.predict(X2)
 
-dict = {'Actuals' : actuals, 'Predictions' : predteest}
+dict = {'Actuals' : actuals, 'Predictions' : preds}
 checkdict = pd.DataFrame.from_dict(dict)
 
 st.write(checkdict)
@@ -897,7 +899,10 @@ graph111 = graph_maker.plotlyScatter2(checkdict,'Actuals','Predictions')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
+rmse=np.sqrt(mean_squared_error(preds,actuals))
+st.write(rmse)
+mae=mean_absolute_error(preds,actuals)
+st.write(mae)
 
-#scatterCARB = graph_maker.plotlyscattermatrix(X2.iloc[:,:4])
-#scatterCARB.update_layout(height=1600)
-#st.plotly_chart(scatterCARB, use_container_width=True)
+st.write(lr4.score(X2,y2))
+

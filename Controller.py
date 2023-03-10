@@ -851,7 +851,7 @@ dfml1a = dfml1.drop(columns=['Has Basement_No','Grid_X','Grid_Y','Bays_X','Bays_
 dfml2 = dfml1.drop(columns=['Has Basement_No'])
 
 
-st.write(dfml2.columns)
+st.write(dfml2)
 
 # target series
 y2 = dfml2['A1_A5_kgCO2e_msq']
@@ -906,3 +906,6 @@ st.write(mae)
 
 st.write(lr4.score(X2,y2))
 
+fig1, ax = plt.subplots()
+ax.hist(dfml2['A1_A5_kgCO2e_msq'], bins=20)
+st.pyplot(fig1)

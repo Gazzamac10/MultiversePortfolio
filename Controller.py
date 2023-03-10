@@ -722,7 +722,7 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated3.csv'
+lrpath2 = 'Excel/EcoZeroGenerated5.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
@@ -736,7 +736,11 @@ dfclean1 = df[nonOutlierList]
 
 outliersample2 =  dfclean1['Cost']
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample2)
-dfclean = dfclean1[nonOutlierList]
+dfclean2 = dfclean1[nonOutlierList]
+
+outliersample3 =  dfclean2['A1_A5_kgCO2e_msq']
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample3)
+dfclean3 = dfclean2[nonOutlierList]
 
 heatall = df.corr()
 
@@ -756,26 +760,33 @@ TypGiaCOST = graph_maker.plotlyBox2(dfclean1,'Typology',"Cost")
 TypGiaCOST.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaCOST, use_container_width=True)
 
-TypGiaCOST = graph_maker.plotlyBox2(dfclean,'Typology',"Cost")
+TypGiaCOST = graph_maker.plotlyBox2(dfclean2,'Typology',"Cost")
 TypGiaCOST.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaCOST, use_container_width=True)
 
+TypGiaM2_1 = graph_maker.plotlyBox2(dfclean2,'Typology',"A1_A5_kgCO2e_msq")
+TypGiaM2_1.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaM2_1, use_container_width=True)
 
-scatterALL = graph_maker.plotlyscattermatrix(dfclean)
+TypGiaM2_2 = graph_maker.plotlyBox2(dfclean3,'Typology',"A1_A5_kgCO2e_msq")
+TypGiaM2_2.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaM2_2, use_container_width=True)
+
+scatterALL = graph_maker.plotlyscattermatrix(dfclean3)
 scatterALL.update_layout(height=1600)
 st.plotly_chart(scatterALL, use_container_width=True)
 
 st.write(df.corr())
 
-scatterCARB = graph_maker.plotlyscattermatrix(dfclean.iloc[:,:7])
+scatterCARB = graph_maker.plotlyscattermatrix(dfclean3.iloc[:,:7])
 scatterCARB.update_layout(height=1600)
 st.plotly_chart(scatterCARB, use_container_width=True)
 
-scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean,'Total A-C','Total A1-A5w')
+scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean3,'Total A-C','Total A1-A5w')
 scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
-df2 = dfclean.iloc[:,5:-1]
+df2 = dfclean3.iloc[:,5:-1]
 df2 = df.drop(columns=['Total A-C','Building Height'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])

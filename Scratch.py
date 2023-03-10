@@ -373,7 +373,6 @@ cd = cd1[nonOutlierList]
 dummies = pd.get_dummies(cd['Project Sector']).rename(columns=lambda x: 'Project Sector_' + str(x))
 df1 = pd.concat([cd, dummies], axis=1)
 
-st.write(cd)
 
 #makecsv(cd,'cd')
 

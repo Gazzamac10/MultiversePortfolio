@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 
 #import Controller as ct
+import Controller
 from tools import graph_maker
 from tools import SQLin
 from tools import Statshelpers
@@ -91,10 +92,10 @@ st.header("ML Predictor")
 #st.image(image1)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-fp = os.path.abspath("Excel/dfdummies.csv")
-pdd = pd.read_csv(fp)
+#fp = os.path.abspath("Excel/dfdummies.csv")
+#pdd = pd.read_csv(fp)
 
-df = pdd
+df = Controller.dfdummies
 df = df.iloc[:,5:]
 df = df.drop(columns=['Has Basement_No','Has Transfer Deck_No'])
 
@@ -115,7 +116,7 @@ y2 = df['A1_A5_kgCO2e_msq']
 
 # predictor matrix
 #X2 = df[['GIA']]
-X2 = df[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Grid_X','Building Use_Education',
+X2 = df[['GIA','Storeys','Has Basement_Yes','Has Transfer Deck_Yes','Grid_X','Grid_Y','Building Use_Education',
          'Building Use_Healthcare','Building Use_Office','Building Use_Residential',
          'Typology_CLT, Glulam and Steel Column Hybrid','Typology_Composite Cell Beams with Metal Decking',
          'Typology_Composite Rolled Steel with Metal Decking','Typology_Non-Composite Rolled Steel with PCC Planks',
@@ -149,10 +150,10 @@ lr4=LinearRegression()
 lr4.fit(X_train,y_train)
 
 
-preds = lr4.predict([[278460,13,0,0,10,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0]])
+#preds = lr4.predict([[25088,2,0,0,12,12,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0]])
 #preds = lr4.predict([[278460,13,0,0]])
 
-st.write(preds)
+#st.write(preds)
 
 
 dif = testscore2-trainscore2
@@ -162,4 +163,15 @@ scatterCARB = graph_maker.plotlyscattermatrix(X2.iloc[:,:4])
 scatterCARB.update_layout(height=1600)
 st.plotly_chart(scatterCARB, use_container_width=True)
 
+actuals = y2
+predteest = lr4.predict(X2)
 
+dict = {'Actuals' : actuals, 'Predictions' : predteest}
+checkdict = pd.DataFrame.from_dict(dict)
+
+st.write(checkdict)
+
+
+graph111 = graph_maker.plotlyScatter2(checkdict,'Actuals','Predictions')
+graph111.update_layout(height=600)
+st.plotly_chart(graph111, use_container_width=True)

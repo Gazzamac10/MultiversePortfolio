@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import streamlit as st
 
-import Controller as ct
+#import Controller as ct
 from tools import graph_maker
 from tools import SQLin
 from tools import Statshelpers
@@ -91,7 +91,10 @@ st.header("ML Predictor")
 #st.image(image1)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-df = ct.dfdummies
+fp = os.path.abspath("Excel/dfdummies.csv")
+pdd = pd.read_csv(fp)
+
+df = pdd
 df = df.iloc[:,5:]
 df = df.drop(columns=['Has Basement_No','Has Transfer Deck_No'])
 

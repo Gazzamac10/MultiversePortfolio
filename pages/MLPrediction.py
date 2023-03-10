@@ -146,8 +146,8 @@ lr4=LinearRegression()
 lr4.fit(X_train,y_train)
 
 
-preds = lr4.predict([[319464,30,0,1,9,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0]])
-#preds = lr4.predict([[278460,13,1,1]])
+preds = lr4.predict([[278460,13,0,0,10,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0]])
+#preds = lr4.predict([[278460,13,0,0]])
 
 st.write(preds)
 

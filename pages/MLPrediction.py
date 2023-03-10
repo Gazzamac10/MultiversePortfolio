@@ -20,6 +20,7 @@ def makecsv(t, name):
     path = 'Excel'
     return t.to_csv(os.path.join(path, str(name) + '.csv'))
 
+st.set_page_config(page_title="My Streamlit App", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded")
 
 # Add custom CSS styles
 st.markdown(
@@ -110,7 +111,6 @@ lr.fit(X,y)
 
 st.write('Predicted Total A1-A5w: '+str(lr.predict([[713042111.249708]])))
 
-
 # target series
 y2 = df['A1_A5_kgCO2e_msq']
 
@@ -170,7 +170,7 @@ dict = {'Actuals' : actuals, 'Predictions' : predteest}
 checkdict = pd.DataFrame.from_dict(dict)
 
 st.write(checkdict)
-
+st.write(actuals.max())
 
 graph111 = graph_maker.plotlyScatter2(checkdict,'Actuals','Predictions')
 graph111.update_layout(height=600)

@@ -787,7 +787,7 @@ scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
 df2 = dfclean3.iloc[:,5:-1]
-df2 = df.drop(columns=['Total A-C','Building Height'])
+df2 = df2.drop(columns=['Total A-C','Building Height'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement','Has Transfer Deck'])
 

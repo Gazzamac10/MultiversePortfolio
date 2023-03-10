@@ -318,9 +318,6 @@ with col2:
     st.plotly_chart(graph400, use_container_width=True)
 
 
-
-
-
 postcodes = pd.read_csv('Excel/ukpostcodes.csv/ukpostcodes.csv')
 
 #dict = {'lat' : [50.82083333], 'lon' : [0.13750000]}

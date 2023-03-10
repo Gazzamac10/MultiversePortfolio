@@ -20,7 +20,7 @@ def makecsv(t, name):
     path = 'Excel'
     return t.to_csv(os.path.join(path, str(name) + '.csv'))
 
-st.set_page_config(page_title="My Streamlit App", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded")
+#st.set_page_config(page_title="My Streamlit App", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded")
 
 # Add custom CSS styles
 st.markdown(

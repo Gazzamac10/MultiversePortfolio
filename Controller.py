@@ -63,7 +63,7 @@ st.markdown(
         }
         h6 {
             font-weight: bold;
-            color: Orange;
+            color: Black;
             font-family: Della;
             font-size: 60px;
             text-align: center;
@@ -918,11 +918,10 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h6>ML Embodied Carbon Predictor</h6>", unsafe_allow_html=True)
 # Add image
 col1, col2, col3 = st.columns([1,8,1])
-image1  = Image.open('Images/EcoPredict4.png')
+image1  = Image.open('Images/EcoPredict6.png')
 resized_image = image1.resize((1200, 400))
 with col2:
     st.image(resized_image)
-st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 Usage_Options =['Education','Healthcare','Office','Residential']
 
@@ -974,5 +973,5 @@ Boolbase = createBoolBasement(Basement)
 
 params = [Storeys,Boolbase]+B_Use+[Grid_X,Grid_Y,Bays_X,Bays_Y]+typ
 
-result = "Predicted Carbon Intensity Rate = "+str(lr3.predict([params])[0])
+result = "Predicted Carbon Intensity Rate A1_A5_kgCO2e_msq = "+str(lr3.predict([params])[0])
 st.markdown("<h3>{}</h3>".format(result), unsafe_allow_html=True)

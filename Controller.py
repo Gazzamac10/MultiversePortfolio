@@ -63,7 +63,7 @@ st.markdown(
         }
         h6 {
             font-weight: bold;
-            color: Blue;
+            color: Orange;
             font-family: Della;
             font-size: 60px;
             text-align: center;
@@ -846,7 +846,6 @@ st.plotly_chart(graph111, use_container_width=True)
 
 
 
-
 dfml1 = dfdummies
 dfml1a = dfml1.drop(columns=['Has Basement_No','Grid_X','Grid_Y','Bays_X','Bays_Y'])
 dfml2 = dfml1.drop(columns=['Has Basement_No'])
@@ -866,8 +865,11 @@ X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
          'Typology_One-Way Spanning RC','Typology_PT RC Flat Slab','Typology_Precast Hollowcore with In-situ RC Beams',
          'Typology_RC Flat Slab','Typology_RC Rib Slab','Typology_Steel Frame with CLT Slabs','Typology_Two-way RC Slab']]
 
-#X2 = dfml2[['GIA','Storeys','Building Use_Education','Building Use_Healthcare',
-            #'Building Use_Office','Building Use_Residential','Has Basement_Yes']]
+
+#X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
+         #'Building Use_Healthcare','Building Use_Office','Building Use_Residential']]
+
+#'Building Use_Office','Building Use_Residential','Has Basement_Yes']]
 
 X_train, X_test, y_train, y_test = train_test_split(X2,y2,train_size=0.8,random_state=100)
 
@@ -922,24 +924,32 @@ with col2:
     st.image(resized_image)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-
-Usage_Options =['Office','Residential','Education','Healthcare']
-Storeys = [i+1 for i in range(35)]
+Usage_Options =['Education','Healthcare','Office','Residential']
 
 typology_Options =['CLT, Glulam and Steel Column Hybrid','Composite Cell Beams with Metal Decking','Composite Rolled Steel with Metal Decking',\
 'Non-Composite Rolled Steel with PCC Planks','One-Way Spanning RC','PT RC Flat Slab',\
 'Precast Hollowcore with In-situ RC Beams','RC Flat Slab','RC Rib Slab','Steel Frame with CLT Slabs',\
 'Two-way RC Slab']
 
-def createindexfortyp(selected):
+def createindexforTyp(selected):
     l = [0,0,0,0,0,0,0,0,0,0,0]
     index = typology_Options.index(selected)
     return l[:index]+[1]+l[index+1:]
 
+def createindexforUsage(selected):
+    l = [0,0,0,0]
+    index = Usage_Options.index(selected)
+    return l[:index]+[1]+l[index+1:]
+
+def createBoolBasement(Bool):
+    if Bool == 'Yes':
+        return 1
+    else:
+        return 0
 
 col1, col2, col3, col4 = st.columns([0.25,0.25,0.25,0.25])
 with col1:
-    Usage_Options = st.selectbox('Usage_Options', ['Office','Residential','Education','Healthcare'])
+    Useage = st.selectbox('Usage_Options', ['Education','Healthcare','Office','Residential'])
 with col2:
     Storeys = st.selectbox('Storeys', [i+1 for i in range(35)])
 with col3:
@@ -953,12 +963,16 @@ with col1:
 with col2:
     Grid_Y = st.selectbox('Grid_Y_Spacing', [i+6 for i in range(11)])
 with col3:
-    Bays_X = st.selectbox('Bays_X', [i+6 for i in range(20)])
+    Bays_X = st.selectbox('Bays_X', [i+1 for i in range(20)])
 with col4:
-    Bays_Y = st.selectbox('Bays_Y', [i+6 for i in range(20)])
+    Bays_Y = st.selectbox('Bays_Y', [i+1 for i in range(20)])
 
 
+typ = createindexforTyp(Typology)
+B_Use = createindexforUsage(Useage)
+Boolbase = createBoolBasement(Basement)
 
+params = [Storeys,Boolbase]+B_Use+[Grid_X,Grid_Y,Bays_X,Bays_Y]+typ
 
-
-typ = createindexfortyp(Typology)
+result = "Predicted Carbon Intensity Rate = "+str(lr3.predict([params])[0])
+st.markdown("<h3>{}</h3>".format(result), unsafe_allow_html=True)

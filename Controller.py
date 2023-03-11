@@ -63,7 +63,7 @@ st.markdown(
         }
         h6 {
             font-weight: bold;
-            color: Green;
+            color: Blue;
             font-family: Della;
             font-size: 60px;
             text-align: center;
@@ -926,8 +926,15 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 Usage_Options =['Office','Residential','Education','Healthcare']
 Storeys = [i+1 for i in range(35)]
 
-typology_Options =[]
+typology_Options =['CLT, Glulam and Steel Column Hybrid','Composite Cell Beams with Metal Decking','Composite Rolled Steel with Metal Decking',\
+'Non-Composite Rolled Steel with PCC Planks','One-Way Spanning RC','PT RC Flat Slab',\
+'Precast Hollowcore with In-situ RC Beams','RC Flat Slab','RC Rib Slab','Steel Frame with CLT Slabs',\
+'Two-way RC Slab']
 
+def createindexfortyp(selected):
+    l = [0,0,0,0,0,0,0,0,0,0,0]
+    index = typology_Options.index(selected)
+    return l[:index]+[1]+l[index+1:]
 
 
 col1, col2, col3, col4 = st.columns([0.25,0.25,0.25,0.25])
@@ -938,4 +945,20 @@ with col2:
 with col3:
     Basement = st.selectbox('Basement', ['Yes','No'])
 with col4:
-    Typology = st.selectbox('Typology', ['Yes','No'])
+    Typology = st.selectbox('Typology', typology_Options)
+
+col1, col2, col3, col4 = st.columns([0.25,0.25,0.25,0.25])
+with col1:
+    Grid_X = st.selectbox('Grid_X_Spacing', [i+6 for i in range(7)])
+with col2:
+    Grid_Y = st.selectbox('Grid_Y_Spacing', [i+6 for i in range(11)])
+with col3:
+    Bays_X = st.selectbox('Bays_X', [i+6 for i in range(20)])
+with col4:
+    Bays_Y = st.selectbox('Bays_Y', [i+6 for i in range(20)])
+
+
+
+
+
+typ = createindexfortyp(Typology)

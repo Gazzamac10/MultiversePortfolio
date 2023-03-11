@@ -61,6 +61,13 @@ st.markdown(
             font-size: 16px;
             text-align: right;
         }
+        h6 {
+            font-weight: bold;
+            color: Green;
+            font-family: Della;
+            font-size: 60px;
+            text-align: center;
+        }
         p {
             color: Black;
             font-family: Arial, sans-serif;
@@ -865,7 +872,7 @@ X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
 X_train, X_test, y_train, y_test = train_test_split(X2,y2,train_size=0.8,random_state=100)
 
 lr3=LinearRegression()
-lr3.fit(X_train,y_train)
+lr3.fit(X2,y2)
 
 trainscore2 = lr3.score(X_train,y_train)
 testscore2 = lr3.score(X_test,y_test)
@@ -879,12 +886,11 @@ st.write(dif)
 lr4=LinearRegression()
 lr4.fit(X_train,y_train)
 
-#preds = lr4.predict([[25088,2,0,0,12,12,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0]])
-
 actuals = y2
 preds = lr4.predict(X2)
+preds2 = lr3.predict(X2)
 
-dict = {'Actuals' : actuals, 'Predictions' : preds}
+dict = {'Actuals' : actuals, 'Predictions' : preds, 'Predictions2' : preds2}
 checkdict = pd.DataFrame.from_dict(dict)
 
 st.write(checkdict)
@@ -907,7 +913,7 @@ st.write(lr4.score(X2,y2))
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-st.header("ML Embodied Carbon Predictor")
+st.markdown("<h6>ML Embodied Carbon Predictor</h6>", unsafe_allow_html=True)
 # Add image
 col1, col2, col3 = st.columns([1,8,1])
 image1  = Image.open('Images/EcoPredict4.png')
@@ -915,3 +921,20 @@ resized_image = image1.resize((1200, 400))
 with col2:
     st.image(resized_image)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
+
+
+Usage_Options =['Office','Residential','Education','Healthcare']
+Storeys = [i+1 for i in range(35)]
+
+typology_Options =
+
+
+col1, col2, col3, col4 = st.columns([0.25,0.25,0.25,0.25])
+with col1:
+    Usage_Options = st.selectbox('Usage_Options', ['Office','Residential','Education','Healthcare'])
+with col2:
+    Storeys = st.selectbox('Storeys', [i+1 for i in range(35)])
+with col3:
+    Basement = st.selectbox('Basement', ['Yes','No'])
+with col4:
+    Typology = st.selectbox('Typology', ['Yes','No'])

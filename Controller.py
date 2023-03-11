@@ -839,12 +839,6 @@ st.plotly_chart(graph111, use_container_width=True)
 
 
 
-st.header("ML Predictor")
-# Add image
-#image1  = Image.open('Images/ML1.jpg')
-#resized_image = image1.resize((1800, 800))
-#st.image(image1)
-st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 dfml1 = dfdummies
 dfml1a = dfml1.drop(columns=['Has Basement_No','Grid_X','Grid_Y','Bays_X','Bays_Y'])
@@ -906,6 +900,18 @@ st.write(mae)
 
 st.write(lr4.score(X2,y2))
 
-fig1, ax = plt.subplots()
-ax.hist(dfml2['A1_A5_kgCO2e_msq'], bins=20)
-st.pyplot(fig1)
+#fig1, ax = plt.subplots()
+#ax.hist(dfml2['A1_A5_kgCO2e_msq'], bins=20)
+#st.pyplot(fig1)
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+
+st.header("ML Embodied Carbon Predictor")
+# Add image
+col1, col2, col3 = st.columns([1,8,1])
+image1  = Image.open('Images/EcoPredict4.png')
+resized_image = image1.resize((1200, 400))
+with col2:
+    st.image(resized_image)
+st.markdown("<h3></h3>", unsafe_allow_html=True)

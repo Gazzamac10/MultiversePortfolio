@@ -926,7 +926,8 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 Usage_Options =['Office','Residential','Education','Healthcare']
 Storeys = [i+1 for i in range(35)]
 
-typology_Options =
+typology_Options =[]
+
 
 
 col1, col2, col3, col4 = st.columns([0.25,0.25,0.25,0.25])

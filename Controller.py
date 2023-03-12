@@ -733,14 +733,13 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated13.csv'
+lrpath2 = 'Excel/EcoZeroGenerated17.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
 dfe = dfa.iloc[:,1:].reset_index()
 dfr = dfe.drop('index', axis=1).rename_axis('Project No')
 dft = dfr.drop(['D'], axis=1)
-
 
 outliersample1 =  dft['GIA']
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample1)
@@ -758,6 +757,7 @@ outliersample4 =  dfclean3['A1_A5_kgCO2e_msq']
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample4)
 dfclean4 = dfclean3[nonOutlierList]
 
+dfcl = dfclean4
 
 heatall = dft.corr()
 
@@ -781,7 +781,11 @@ TypGiaCOST = graph_maker.plotlyBox2(dfclean2,'Typology',"Cost")
 TypGiaCOST.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaCOST, use_container_width=True)
 
-TypA1_A5 = graph_maker.plotlyBox2(dfclean2,'Typology',"A1_A5_kgCO2e_msq")
+TypA1_A5 = graph_maker.plotlyBox2(dfclean2,'Typology',"Total A1-A5w")
+TypA1_A5.update_layout(height=500, width=300)
+st.plotly_chart(TypA1_A5, use_container_width=True)
+
+TypA1_A5 = graph_maker.plotlyBox2(dfclean3,'Typology',"Total A1-A5w")
 TypA1_A5.update_layout(height=500, width=300)
 st.plotly_chart(TypA1_A5, use_container_width=True)
 
@@ -789,35 +793,25 @@ TypGiaM2_2 = graph_maker.plotlyBox2(dfclean3,'Typology',"A1_A5_kgCO2e_msq")
 TypGiaM2_2.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaM2_2, use_container_width=True)
 
-TypGiaM2_1 = graph_maker.plotlyBox2(dfclean3,'Typology',"A1_A5_kgCO2e_msq")
-TypGiaM2_1.update_layout(height=500, width=300)
-st.plotly_chart(TypGiaM2_1, use_container_width=True)
-
 TypGiaM2_2 = graph_maker.plotlyBox2(dfclean4,'Typology',"A1_A5_kgCO2e_msq")
 TypGiaM2_2.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaM2_2, use_container_width=True)
 
-
-
-
-
-
-
-scatterALL = graph_maker.plotlyscattermatrix(dfclean4)
+scatterALL = graph_maker.plotlyscattermatrix(dfcl)
 scatterALL.update_layout(height=1600)
 st.plotly_chart(scatterALL, use_container_width=True)
 
 st.write(dft.corr())
 
-scatterCARB = graph_maker.plotlyscattermatrix(dfclean4.iloc[:,:7])
+scatterCARB = graph_maker.plotlyscattermatrix(dfcl.iloc[:,:7])
 scatterCARB.update_layout(height=1600)
 st.plotly_chart(scatterCARB, use_container_width=True)
 
-scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean4,'Total A-C','Total A1-A5w')
+scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfcl,'Total A-C','Total A1-A5w')
 scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
-df2 = dfclean4.iloc[:,5:]
+df2 = dfcl.iloc[:,5:]
 df2 = df2.drop(columns=['Total A-C'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement'])
@@ -828,13 +822,10 @@ df2corr = graph_maker.plotlyheatmap(dfdummies.corr())
 df2corr.update_layout(height=1600)
 st.plotly_chart(df2corr, use_container_width=True)
 
+
 scattertotalKGvstotalA1A5 = graph_maker.plotlyScatter2(dfdummies,'Total Kg','Total A1-A5w')
 scattertotalKGvstotalA1A5.update_layout(height=600)
 st.plotly_chart(scattertotalKGvstotalA1A5, use_container_width=True)
-
-HasbasevsA1A5 = graph_maker.plotlyScatter2(dfdummies,'Has Basement_Yes','A1_A5_kgCO2e_msq')
-HasbasevsA1A5.update_layout(height=600)
-st.plotly_chart(HasbasevsA1A5, use_container_width=True)
 
 
 typA1A5average = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index()
@@ -842,7 +833,6 @@ typA1A5average = df2.groupby('Typology').mean()['A1_A5_kgCO2e_msq'].reset_index(
 typA1A5average = graph_maker.plotlyBar2(typA1A5average,'Typology','A1_A5_kgCO2e_msq')
 typA1A5average.update_layout(height=600)
 st.plotly_chart(typA1A5average, use_container_width=True)
-
 
 Basement = df2.groupby('Has Basement').mean()['Total A1-A5w'].reset_index()
 
@@ -857,6 +847,7 @@ usevsA5average = graph_maker.plotlyBar2(buildinguse,'Building Use','A1_A5_kgCO2e
 usevsA5average.update_layout(height=600)
 st.plotly_chart(usevsA5average, use_container_width=True)
 
+
 typecount = df2.groupby('A1_A5_kgCO2e_msq').mean()['Total A1-A5w'].reset_index()
 
 graph111 = graph_maker.plotlyScatter2(typecount,'A1_A5_kgCO2e_msq','Total A1-A5w')
@@ -864,18 +855,15 @@ graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
 
-
 dfml1 = dfdummies
 dfml1a = dfml1.drop(columns=['Has Basement_No','Grid_X','Grid_Y','Bays_X','Bays_Y'])
 dfml2 = dfml1.drop(columns=['Has Basement_No'])
 
-
 st.write(dfml2)
 
 # target series
-y2 = dfml2['Total A1-A5w']
+y2 = dfml2['A1_A5_kgCO2e_msq']
 # predictor matrix
-
 
 X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
          'Building Use_Healthcare','Building Use_Office','Building Use_Residential','Grid_X','Grid_Y','Bays_X','Bays_Y',
@@ -885,7 +873,7 @@ X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
          'Typology_RC Flat Slab','Typology_RC Rib Slab','Typology_Steel Frame with CLT Slabs','Typology_Two-way RC Slab']]
 
 
-X2a = dfml2[['Storeys','GIA']]
+X2a = dfml2[['Storeys','Total Kg','Total A1-A5w']]
 
 
 #X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
@@ -910,22 +898,19 @@ st.write(dif)
 lr4=LinearRegression()
 lr4.fit(X_train,y_train)
 
-
 lr5=LinearRegression()
 lr5.fit(X2a,y2)
-
 
 actuals = y2
 preds = lr3.predict(X2)
 preds2 = lr5.predict(X2a)
-
 
 dict = {'Actuals' : actuals, 'Predictions' : preds, 'Predictions2' : preds2}
 checkdict = pd.DataFrame.from_dict(dict)
 
 st.write(checkdict)
 
-graph111 = graph_maker.plotlyScatter2(checkdict,'Actuals','Predictions2')
+graph111 = graph_maker.plotlyScatter2(checkdict,'Predictions','Actuals')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 
@@ -939,7 +924,6 @@ st.write(lr4.score(X2,y2))
 carbonhistgraph = graph_maker.plotlyHist(dfml2,'A1_A5_kgCO2e_msq',30)
 carbonhistgraph.update_layout(height=600)
 st.plotly_chart(carbonhistgraph, use_container_width=True)
-
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
@@ -987,7 +971,7 @@ with col4:
 
 col1, col2, col3, col4 = st.columns([0.25,0.25,0.25,0.25])
 with col1:
-    Grid_X = st.selectbox('Grid_X_Spacing', [i+6 for i in range(7)])
+    Grid_X = st.selectbox('Grid_X_Spacing', [i+5 for i in range(7)])
 with col2:
     Grid_Y = st.selectbox('Grid_Y_Spacing', [i+6 for i in range(11)])
 with col3:

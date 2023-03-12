@@ -65,7 +65,7 @@ st.markdown(
             font-weight: bold;
             color: #333753;
             font-family: Della;
-            font-size: 60px;
+            font-size: 50px;
             text-align: center;
         }
         p {
@@ -919,7 +919,7 @@ st.markdown("<h6>ML Embodied Carbon Predictor</h6>", unsafe_allow_html=True)
 # Add image
 col1, col2, col3 = st.columns([1,8,1])
 image1  = Image.open('Images/EcoPredict9.png')
-resized_image = image1.resize((1200, 300))
+resized_image = image1.resize((1200, 250))
 with col2:
     st.image(resized_image)
 

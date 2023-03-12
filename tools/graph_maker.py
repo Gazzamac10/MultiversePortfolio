@@ -181,10 +181,10 @@ def plotlyBox2(dataframe,x,y):
     fig.update_yaxes(showticklabels=False)
     return fig
 
-def plotlyHist(dataframe,x):
+def plotlyHist(dataframe,x,bins):
     import plotly.express as px
-    fig = px.histogram(dataframe, x=dataframe[x],
-        color=dataframe[x],color_discrete_sequence=px.colors.carto.Earth)
+    fig = px.histogram(dataframe, x=dataframe[x], nbins = bins,
+                       color_discrete_sequence=px.colors.carto.Antique)
     fig.update_xaxes(showticklabels=True)  # Hide x axis ticks
     fig.update_yaxes(showticklabels=True)
     return fig

@@ -908,9 +908,10 @@ st.write(mae)
 
 st.write(lr4.score(X2,y2))
 
-#fig1, ax = plt.subplots()
-#ax.hist(dfml2['A1_A5_kgCO2e_msq'], bins=20)
-#st.pyplot(fig1)
+carbonhistgraph = graph_maker.plotlyHist(dfml2,'A1_A5_kgCO2e_msq',30)
+carbonhistgraph.update_layout(height=600)
+st.plotly_chart(carbonhistgraph, use_container_width=True)
+
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)

@@ -918,7 +918,7 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h6>ML Embodied Carbon Predictor</h6>", unsafe_allow_html=True)
 # Add image
 col1, col2, col3 = st.columns([1,8,1])
-image1  = Image.open('Images/EcoPredict6.png')
+image1  = Image.open('Images/EcoPredict9.png')
 resized_image = image1.resize((1200, 400))
 with col2:
     st.image(resized_image)

@@ -733,7 +733,7 @@ st.image(imageCarbonFactors)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 
-lrpath2 = 'Excel/EcoZeroGenerated8.csv'
+lrpath2 = 'Excel/EcoZeroGenerated13.csv'
 df1 = pd.read_csv(lrpath2)
 
 dfa = df1[(df1['Total Kg'] > 0) & (df1['A1_A5_kgCO2e_msq'] > 0)]
@@ -750,9 +750,14 @@ outliersample2 =  dfclean1['Cost']
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample2)
 dfclean2 = dfclean1[nonOutlierList]
 
-outliersample3 =  dfclean2['A1_A5_kgCO2e_msq']
+outliersample3 =  dfclean2['Total A1-A5w']
 nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample3)
 dfclean3 = dfclean2[nonOutlierList]
+
+outliersample4 =  dfclean3['A1_A5_kgCO2e_msq']
+nonOutlierList = Statshelpers.Remove_Outlier_Indices(outliersample4)
+dfclean4 = dfclean3[nonOutlierList]
+
 
 heatall = dft.corr()
 
@@ -776,29 +781,43 @@ TypGiaCOST = graph_maker.plotlyBox2(dfclean2,'Typology',"Cost")
 TypGiaCOST.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaCOST, use_container_width=True)
 
-TypGiaM2_1 = graph_maker.plotlyBox2(dfclean2,'Typology',"A1_A5_kgCO2e_msq")
-TypGiaM2_1.update_layout(height=500, width=300)
-st.plotly_chart(TypGiaM2_1, use_container_width=True)
+TypA1_A5 = graph_maker.plotlyBox2(dfclean2,'Typology',"A1_A5_kgCO2e_msq")
+TypA1_A5.update_layout(height=500, width=300)
+st.plotly_chart(TypA1_A5, use_container_width=True)
 
 TypGiaM2_2 = graph_maker.plotlyBox2(dfclean3,'Typology',"A1_A5_kgCO2e_msq")
 TypGiaM2_2.update_layout(height=500, width=300)
 st.plotly_chart(TypGiaM2_2, use_container_width=True)
 
-scatterALL = graph_maker.plotlyscattermatrix(dfclean3)
+TypGiaM2_1 = graph_maker.plotlyBox2(dfclean3,'Typology',"A1_A5_kgCO2e_msq")
+TypGiaM2_1.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaM2_1, use_container_width=True)
+
+TypGiaM2_2 = graph_maker.plotlyBox2(dfclean4,'Typology',"A1_A5_kgCO2e_msq")
+TypGiaM2_2.update_layout(height=500, width=300)
+st.plotly_chart(TypGiaM2_2, use_container_width=True)
+
+
+
+
+
+
+
+scatterALL = graph_maker.plotlyscattermatrix(dfclean4)
 scatterALL.update_layout(height=1600)
 st.plotly_chart(scatterALL, use_container_width=True)
 
 st.write(dft.corr())
 
-scatterCARB = graph_maker.plotlyscattermatrix(dfclean3.iloc[:,:7])
+scatterCARB = graph_maker.plotlyscattermatrix(dfclean4.iloc[:,:7])
 scatterCARB.update_layout(height=1600)
 st.plotly_chart(scatterCARB, use_container_width=True)
 
-scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean3,'Total A-C','Total A1-A5w')
+scatteretotalACvstotalA5 = graph_maker.plotlyScatter2(dfclean4,'Total A-C','Total A1-A5w')
 scatteretotalACvstotalA5.update_layout(height=600)
 st.plotly_chart(scatteretotalACvstotalA5, use_container_width=True)
 
-df2 = dfclean3.iloc[:,5:]
+df2 = dfclean4.iloc[:,5:]
 df2 = df2.drop(columns=['Total A-C'])
 
 dfdummies = pd.get_dummies(df2, columns=['Typology', 'Building Use','Has Basement'])
@@ -854,7 +873,7 @@ dfml2 = dfml1.drop(columns=['Has Basement_No'])
 st.write(dfml2)
 
 # target series
-y2 = dfml2['A1_A5_kgCO2e_msq']
+y2 = dfml2['Total A1-A5w']
 # predictor matrix
 
 
@@ -864,6 +883,9 @@ X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
          'Typology_Composite Rolled Steel with Metal Decking','Typology_Non-Composite Rolled Steel with PCC Planks',
          'Typology_One-Way Spanning RC','Typology_PT RC Flat Slab','Typology_Precast Hollowcore with In-situ RC Beams',
          'Typology_RC Flat Slab','Typology_RC Rib Slab','Typology_Steel Frame with CLT Slabs','Typology_Two-way RC Slab']]
+
+
+X2a = dfml2[['Storeys','GIA']]
 
 
 #X2 = dfml2[['Storeys','Has Basement_Yes','Building Use_Education',
@@ -888,16 +910,22 @@ st.write(dif)
 lr4=LinearRegression()
 lr4.fit(X_train,y_train)
 
+
+lr5=LinearRegression()
+lr5.fit(X2a,y2)
+
+
 actuals = y2
-preds = lr4.predict(X2)
-preds2 = lr3.predict(X2)
+preds = lr3.predict(X2)
+preds2 = lr5.predict(X2a)
+
 
 dict = {'Actuals' : actuals, 'Predictions' : preds, 'Predictions2' : preds2}
 checkdict = pd.DataFrame.from_dict(dict)
 
 st.write(checkdict)
 
-graph111 = graph_maker.plotlyScatter2(checkdict,'Actuals','Predictions')
+graph111 = graph_maker.plotlyScatter2(checkdict,'Actuals','Predictions2')
 graph111.update_layout(height=600)
 st.plotly_chart(graph111, use_container_width=True)
 

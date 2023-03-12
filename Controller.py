@@ -63,7 +63,7 @@ st.markdown(
         }
         h6 {
             font-weight: bold;
-            color: Black;
+            color: #333753;
             font-family: Della;
             font-size: 60px;
             text-align: center;
@@ -919,7 +919,7 @@ st.markdown("<h6>ML Embodied Carbon Predictor</h6>", unsafe_allow_html=True)
 # Add image
 col1, col2, col3 = st.columns([1,8,1])
 image1  = Image.open('Images/EcoPredict9.png')
-resized_image = image1.resize((1200, 400))
+resized_image = image1.resize((1200, 300))
 with col2:
     st.image(resized_image)
 
@@ -972,6 +972,16 @@ B_Use = createindexforUsage(Useage)
 Boolbase = createBoolBasement(Basement)
 
 params = [Storeys,Boolbase]+B_Use+[Grid_X,Grid_Y,Bays_X,Bays_Y]+typ
+paramsALT = [[Storeys,Boolbase]+B_Use+[Grid_X,Grid_Y,Bays_X,Bays_Y]+createindexforTyp(item) for item in typology_Options]
 
 result = "Predicted Carbon Intensity Rate A1_A5_kgCO2e_msq = "+str(lr3.predict([params])[0])
 st.markdown("<h3>{}</h3>".format(result), unsafe_allow_html=True)
+alternateDF = pd.DataFrame([lr3.predict([item])[0]for item in paramsALT])
+alternateDF['Typology'] = typology_Options
+#alternateDF.index = typology_Options
+alternateDF.columns = ['A1_A5_kgCO2e_msq', *alternateDF.columns[1:]]
+
+alternateoptions = graph_maker.plotlyBar2(alternateDF,'Typology','A1_A5_kgCO2e_msq')
+alternateoptions.update_layout(height=400)
+st.plotly_chart(alternateoptions, use_container_width=True)
+

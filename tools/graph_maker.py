@@ -141,9 +141,9 @@ def load_graph2(dataframe):
 def plotlyBar(dataframe,x):
     import plotly.express as px
     fig = px.bar(dataframe, x=dataframe[x],
-        color=dataframe[x],color_discrete_sequence=px.colors.plotlyjs.Blackbody)
-    fig.update_xaxes(showticklabels=False)  # Hide x axis ticks
-    fig.update_yaxes(showticklabels=False)
+        color=dataframe[x],color_discrete_sequence=px.colors.carto.Antique)
+    fig.update_xaxes(showticklabels=True)  # Hide x axis ticks
+    fig.update_yaxes(showticklabels=True)
     return fig
 
 def plotlyBar2(dataframe,x,y):

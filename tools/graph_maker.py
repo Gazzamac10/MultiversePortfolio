@@ -155,6 +155,15 @@ def plotlyBar2(dataframe,x,y):
     #fig.update_layout(yaxis_range=[0,100])
     return fig
 
+def plotlyBar2colours(dataframe,x,y):
+    import plotly.express as px
+    fig = px.bar(dataframe, x=dataframe[x], y=dataframe[y],
+        color=dataframe[x],color_discrete_sequence=px.colors.carto.Brwnyl)
+    fig.update_xaxes(showticklabels=True,)  # Hide x axis ticks
+    fig.update_yaxes(showticklabels=True)
+    #fig.update_layout(yaxis_range=[0,100])
+    return fig
+
 
 def plotlyBox(dataframe,x):
     import plotly.express as px
@@ -213,7 +222,6 @@ def plotlyScatter2(dataframe,x,y):
     fig.update_xaxes(showticklabels=True,)  # Hide x axis ticks
     fig.update_yaxes(showticklabels=True, autorange=True)
     return fig
-
 
 def plotlyscattermatrix(dataframe):
     import plotly.express as px

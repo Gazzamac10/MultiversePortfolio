@@ -981,7 +981,7 @@ alternateDF['Typology'] = typology_Options
 #alternateDF.index = typology_Options
 alternateDF.columns = ['A1_A5_kgCO2e_msq', *alternateDF.columns[1:]]
 
-alternateoptions = graph_maker.plotlyBar2(alternateDF,'Typology','A1_A5_kgCO2e_msq')
+alternateoptions = graph_maker.plotlyBar2colours(alternateDF,'Typology','A1_A5_kgCO2e_msq')
 alternateoptions.update_layout(height=400)
 st.plotly_chart(alternateoptions, use_container_width=True)
 

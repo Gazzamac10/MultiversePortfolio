@@ -1028,11 +1028,10 @@ rate = [findrating(item)for item in alternateDF['A1_A5_kgCO2e_msq']]
 scorsDF.insert(1, "Scors Rating", rate)
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
-col1, col2, = st.columns([0.35,0.5])
-with col1:
-    st.write(scorsDF)
+col1, col2, = st.columns([0.25,0.5])
 with col2:
+    st.write(scorsDF)
+with col1:
     imageCarbonFactors  = Image.open('Images/Scors.JPG')
     resized_image = imageCarbonFactors.resize((400, 425))
     st.image(resized_image)
-

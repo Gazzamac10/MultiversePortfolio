@@ -998,3 +998,40 @@ alternateoptions = graph_maker.plotlyBar2colours(alternateDF,'Typology','A1_A5_k
 alternateoptions.update_layout(height=400)
 st.plotly_chart(alternateoptions, use_container_width=True)
 
+def findrating(number):
+    if number > 0 and number < 51:
+        return "A++"
+    elif number > 50 and number < 101:
+        return "A+"
+    elif number > 100 and number < 151:
+        return "A"
+    elif number > 150 and number < 201:
+        return "B"
+    elif number > 200 and number < 251:
+        return "C"
+    elif number > 250 and number < 301:
+        return "D"
+    elif number > 300 and number < 351:
+        return "E"
+    elif number > 350 and number < 401:
+        return "F"
+    elif number > 400 :
+        return "G"
+
+
+rate = [findrating(item)for item in alternateDF['A1_A5_kgCO2e_msq']]
+scorsDF = alternateDF['Typology'].reset_index()
+scorsDF.insert(2, "Scors Rating", rate)
+scorsDF = scorsDF.drop(['index'], axis=1)
+scorsDF.index = scorsDF['Typology']
+scorsDF = scorsDF.drop(['Typology'], axis=1)
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+col1, col2, = st.columns([0.25,0.5])
+with col1:
+    st.write(scorsDF)
+with col2:
+    imageCarbonFactors  = Image.open('Images/Scors.JPG')
+    resized_image = imageCarbonFactors.resize((400, 425))
+    st.image(resized_image)
+

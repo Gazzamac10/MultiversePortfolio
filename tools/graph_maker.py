@@ -165,6 +165,16 @@ def plotlyBar2colours(dataframe,x,y):
     return fig
 
 
+def plotlyBarSCORS(dataframe,x,y):
+    import plotly.express as px
+    fig = px.bar(dataframe, x=dataframe[x], y=dataframe[y],
+        color=dataframe[x],color_discrete_sequence=px.colors.carto.Bold)
+    fig.update_xaxes(showticklabels=True,)  # Hide x axis ticks
+    fig.update_yaxes(showticklabels=True)
+    #fig.update_layout(yaxis_range=[0,100])
+    return fig
+
+
 def plotlyBox(dataframe,x):
     import plotly.express as px
     fig = px.box(dataframe, y=dataframe[x],
@@ -180,6 +190,7 @@ def plotlyBox2(dataframe,x,y):
     fig.update_xaxes(showticklabels=False)  # Hide x axis ticks
     fig.update_yaxes(showticklabels=False)
     return fig
+
 
 def plotlyHist(dataframe,x,bins):
     import plotly.express as px

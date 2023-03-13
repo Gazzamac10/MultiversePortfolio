@@ -1019,15 +1019,16 @@ def findrating(number):
         return "G"
 
 
-rate = [findrating(item)for item in alternateDF['A1_A5_kgCO2e_msq']]
-scorsDF = alternateDF['Typology'].reset_index()
-scorsDF.insert(2, "Scors Rating", rate)
-scorsDF = scorsDF.drop(['index'], axis=1)
-scorsDF.index = scorsDF['Typology']
+scorsDF = alternateDF
+scorsDF.index = alternateDF['Typology']
 scorsDF = scorsDF.drop(['Typology'], axis=1)
 
+rate = [findrating(item)for item in alternateDF['A1_A5_kgCO2e_msq']]
+
+scorsDF.insert(1, "Scors Rating", rate)
+
 st.markdown("<h3></h3>", unsafe_allow_html=True)
-col1, col2, = st.columns([0.25,0.5])
+col1, col2, = st.columns([0.35,0.5])
 with col1:
     st.write(scorsDF)
 with col2:

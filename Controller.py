@@ -814,8 +814,31 @@ st.write("Embodied carbon makes up a very significant proportion of the carbon e
 st.write("As operational carbon emissions continue to decrease over time, embodied carbon will make up an ever-growing "
          "proportion of the total carbon emissions from buildings.")
 
+st.markdown("<h3></h3>", unsafe_allow_html=True)
 
 
+def createpiechart(perc,title):
+    data = {'value': perc}
+    df = pd.DataFrame(data, index=['Operational Carbon', 'Embodied Carbon'])
+    ch = graph_maker.load_pie(df,df.index,'value',title)
+    ch.update_layout(height=500)
+    return ch
 
+nineteenseventy = createpiechart([90,10],'1970s')
+twothousandten = createpiechart([60,40],'2010s')
+twothousandtwenty = createpiechart([20,80],'2020s')
+twothousandthirty = createpiechart([2,98],'2030s')
+
+col1,col2,col3,col4 = st.columns([0.25,0.25,0.25,0.25])
+with col1:
+    st.plotly_chart(nineteenseventy, use_container_width=True)
+with col2:
+    st.plotly_chart(twothousandten, use_container_width=True)
+with col3:
+    st.plotly_chart(twothousandtwenty, use_container_width=True)
+with col4:
+    st.plotly_chart(twothousandthirty, use_container_width=True)
 
 #st.markdown("<h5>Embodied carbon = quantity × carbon factor</h5>", unsafe_allow_html=True)
+
+

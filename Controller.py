@@ -779,7 +779,7 @@ st.write("My plan is to use the databases produced by the data extraction tool a
          "parameters have the most significant impact on carbon and use that information to create a linear "
          "regression model that predicts the carbon rates for similar projects.")
 
-st.markdown("<h4>Calculating Embodied Carbon:</h4>", unsafe_allow_html=True)
+st.markdown("<h4>Embodied Carbon:</h4>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h5>What is Embodied Carbon</h5>", unsafe_allow_html=True)
 st.write("The term embodied carbon refers to the 'upfront' emissions associated with building construction, including "
@@ -787,15 +787,6 @@ st.write("The term embodied carbon refers to the 'upfront' emissions associated 
          "and construction of the building. It also includes the 'in-use' stage (the maintenance, replacement, "
          "and emissions associated with refrigerant leakage) and the 'end of life' stage (demolition, disassembly, "
          "and disposal of any parts of product or building) and any transportation relating to the above.")
-
-st.write("An embodied carbon assessment should be broken down and reported for the lifecycle modules shown in the "
-         "modular structure of the EN 15978 methodology (below).")
-
-st.markdown("<h3></h3>", unsafe_allow_html=True)
-col1, col2, col3 = st.columns([1,8,1])
-imageproject1K  = Image.open('Images/Lifecycle.JPG')
-with col2:
-    st.image(imageproject1K)
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
@@ -815,7 +806,6 @@ st.write("As operational carbon emissions continue to decrease over time, embodi
          "proportion of the total carbon emissions from buildings.")
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
-
 
 def createpiechart(perc,title):
     data = {'value': perc}
@@ -851,4 +841,48 @@ with col3:
 with col4:
     st.plotly_chart(twothousandthirty, use_container_width=True)
 
-#st.markdown("<h5>Embodied carbon = quantity × carbon factor</h5>", unsafe_allow_html=True)
+
+
+st.markdown("<h5>Calculating Embodied Carbon</h5>", unsafe_allow_html=True)
+
+st.write("The fundamental principle of an embodied carbon calculation is typically to multiply the quantity of each material or "
+ "product by a carbon factor (normally measured in kgCO2e per kg of material) for each lifecycle module being considered:")
+
+st.markdown("<h5>Embodied carbon = quantity × carbon factor</h5>", unsafe_allow_html=True)
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([0.1,9.8,0.1])
+carbonrate  = Image.open('Images/CarbonCalc_1.png')
+resized_image = carbonrate.resize((2000, 1800))
+
+st.image(carbonrate)
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.write("An embodied carbon assessment should be broken down and reported for the lifecycle modules shown in the "
+         "modular structure of the EN 15978 methodology (below).")
+
+col1, col2, col3 = st.columns([1,8,1])
+imageproject1K  = Image.open('Images/Lifecycle.JPG')
+#with col2:
+st.image(imageproject1K)
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1,8,1])
+carbonrate  = Image.open('Images/A-brief-guide-to-calculating-embodied-carbon_1.png')
+resized_image = carbonrate.resize((1200, 1400))
+#with col2:
+st.image(carbonrate)
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1,8,1])
+carbonrate  = Image.open('Images/A-brief-guide-to-calculating-embodied-carbon_2.png')
+resized_image = carbonrate.resize((1200, 1400))
+#with col2:
+st.image(carbonrate)
+
+
+

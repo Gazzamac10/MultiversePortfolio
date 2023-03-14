@@ -797,8 +797,7 @@ imageproject1K  = Image.open('Images/Lifecycle.JPG')
 with col2:
     st.image(imageproject1K)
 
-
-
+st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns([1.1,8,1])
 imageproject1K  = Image.open('Images/LifecycleStages.JPG')

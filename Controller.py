@@ -780,7 +780,7 @@ st.write("My plan is to use the databases produced by the data extraction tool a
          "regression model that predicts the carbon rates for similar projects.")
 
 st.markdown("<h4>Calculating Embodied Carbon:</h4>", unsafe_allow_html=True)
-
+st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.write("The most important time to calculate embodied carbon is in the early design stages. It is crucial to have "
          "time and scope to make changes in light of your embodied carbon assessment.The fundamental principle of an "
          "embodied carbon calculation is typically to multiply the quantity of each material or product by a carbon "
@@ -792,5 +792,22 @@ st.write(" Lifecycle stages (in accordance with BS EN 15978 (2011)4 and BS EN 15
          "deﬁne the amount of carbon released at the diﬀerent stages of a material or product’s life.")
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1,8,1])
 imageproject1K  = Image.open('Images/Lifecycle.JPG')
-st.image(imageproject1K)
+with col2:
+    st.image(imageproject1K)
+
+
+
+st.markdown("<h3></h3>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1.1,8,1])
+imageproject1K  = Image.open('Images/LifecycleStages.JPG')
+with col2:
+    st.image(imageproject1K)
+
+
+st.markdown("<h4>A1-A3</h4>", unsafe_allow_html=True)
+st.write("The most important time to calculate embodied carbon is in the early design stages. It is crucial to have "
+         "time and scope to make changes in light of your embodied carbon assessment.The fundamental principle of an "
+         "embodied carbon calculation is typically to multiply the quantity of each material or product by a carbon "
+         "factor (normally measured in kgCO2e per kg of material) for each lifecycle module being considered:")

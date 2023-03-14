@@ -111,15 +111,23 @@ def get_high_frequency_entities_graph2(file,x,y):
     return ax.figure
 
 
-def load_pie(dataframe,n,v,title):
+def load_pie(dataframe,n,v,title,colors):
     import plotly.express as px
     fig = px.pie(dataframe,names=n,values=v,
-    color_discrete_sequence=px.colors.carto.Aggrnyl,
+    color_discrete_sequence=colors,
     title=title)
     #fig.update_layout(showlegend=False)
     fig.update_traces(textinfo='none')
     return fig
 
+def load_pie2(dataframe, n, v, title, colors, traceorder):
+    import plotly.express as px
+    fig = px.pie(dataframe, names=n, values=v,
+                 color_discrete_sequence=colors,
+                 title=title,
+                 color_discrete_map=traceorder)
+    fig.update_traces(textinfo='none')
+    return fig
 
 
 def load_pieTEST(dataframe,n,v):

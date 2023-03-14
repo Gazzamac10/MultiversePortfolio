@@ -820,14 +820,26 @@ st.markdown("<h3></h3>", unsafe_allow_html=True)
 def createpiechart(perc,title):
     data = {'value': perc}
     df = pd.DataFrame(data, index=['Operational Carbon', 'Embodied Carbon'])
-    ch = graph_maker.load_pie(df,df.index,'value',title)
+    colors = ['red','blue']
+    ch = graph_maker.load_pie(df,df.index,'value',title,colors)
     ch.update_layout(height=500)
     return ch
 
-nineteenseventy = createpiechart([90,10],'1970s')
-twothousandten = createpiechart([60,40],'2010s')
-twothousandtwenty = createpiechart([20,80],'2020s')
-twothousandthirty = createpiechart([2,98],'2030s')
+
+def createpiechart2(perc, title):
+    data = {'value': perc}
+    df = pd.DataFrame(data, index=['Operational Carbon', 'Embodied Carbon'])
+    color_map = {'Operational Carbon': '#8D6879', 'Embodied Carbon': '#B4A26D'}
+    trace_order = {'Operational Carbon': 0, 'Embodied Carbon': 1}
+    ch = graph_maker.load_pie2(df, df.index, 'value', title, colors=list(color_map.values()), traceorder=trace_order)
+    ch.update_traces(textinfo='none', marker=dict(colors=list(color_map.values())))
+    return ch
+
+
+nineteenseventy = createpiechart2([90,10],'1970s')
+twothousandten = createpiechart2([60,40],'2010s')
+twothousandtwenty = createpiechart2([20,80],'2020s')
+twothousandthirty = createpiechart2([2,98],'2030s')
 
 col1,col2,col3,col4 = st.columns([0.25,0.25,0.25,0.25])
 with col1:
@@ -840,5 +852,3 @@ with col4:
     st.plotly_chart(twothousandthirty, use_container_width=True)
 
 #st.markdown("<h5>Embodied carbon = quantity × carbon factor</h5>", unsafe_allow_html=True)
-
-

@@ -781,15 +781,15 @@ st.write("My plan is to use the databases produced by the data extraction tool a
 
 st.markdown("<h4>Calculating Embodied Carbon:</h4>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
-st.write("The most important time to calculate embodied carbon is in the early design stages. It is crucial to have "
-         "time and scope to make changes in light of your embodied carbon assessment.The fundamental principle of an "
-         "embodied carbon calculation is typically to multiply the quantity of each material or product by a carbon "
-         "factor (normally measured in kgCO2e per kg of material) for each lifecycle module being considered:")
+st.markdown("<h5>What is Embodied Carbon</h5>", unsafe_allow_html=True)
+st.write("The term embodied carbon refers to the 'upfront' emissions associated with building construction, including "
+         "the extraction and processing of materials and the energy and water consumption in the production, assembly, "
+         "and construction of the building. It also includes the 'in-use' stage (the maintenance, replacement, "
+         "and emissions associated with refrigerant leakage) and the 'end of life' stage (demolition, disassembly, "
+         "and disposal of any parts of product or building) and any transportation relating to the above.")
 
-st.markdown("<h5>Embodied carbon = quantity × carbon factor</h5>", unsafe_allow_html=True)
-
-st.write(" Lifecycle stages (in accordance with BS EN 15978 (2011)4 and BS EN 15804 (2019)5) are used to "
-         "deﬁne the amount of carbon released at the diﬀerent stages of a material or product’s life.")
+st.write("An embodied carbon assessment should be broken down and reported for the lifecycle modules shown in the "
+         "modular structure of the EN 15978 methodology (below).")
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns([1,8,1])
@@ -799,14 +799,23 @@ with col2:
 
 st.markdown("<h3></h3>", unsafe_allow_html=True)
 st.markdown("<h3></h3>", unsafe_allow_html=True)
-col1, col2, col3 = st.columns([1.1,8,1])
-imageproject1K  = Image.open('Images/LifecycleStages.JPG')
-with col2:
-    st.image(imageproject1K)
+st.markdown("<h5>Why Does Embodied Carbon Matter</h5>", unsafe_allow_html=True)
+st.write("40% of global CO2 emissions are associated with building operations and materials/construction. "
+         "A quarter of this come from the materials used to construct the core and shell of buildings. "
+         "Reducing the embodied carbon from buildings is therefore a huge factor in mitigating climate change.")
+st.write("The production of steel, concrete and aluminium alone – three of the most used materials for constructing "
+         "buildings - contribute nearly a quarter of all CO2 emissions for all uses. It is important to use these "
+         "materials as sparingly as possible and source low carbon alternatives to limit their environmental impact.")
+st.write("Embodied carbon makes up a very significant proportion of the carbon emissions associated with new "
+         "construction projects. It has been estimated that embodied carbon from materials will make up approximately "
+         "50% of the total carbon emissions from new construction globally over the next 30 years if nothing changes. "
+         "Over the next 10 years, embodied carbon will contribute nearly three quarters of all carbon emissions "
+         "from new buildings.")
+st.write("As operational carbon emissions continue to decrease over time, embodied carbon will make up an ever-growing "
+         "proportion of the total carbon emissions from buildings.")
 
 
-st.markdown("<h4>A1-A3</h4>", unsafe_allow_html=True)
-st.write("The most important time to calculate embodied carbon is in the early design stages. It is crucial to have "
-         "time and scope to make changes in light of your embodied carbon assessment.The fundamental principle of an "
-         "embodied carbon calculation is typically to multiply the quantity of each material or product by a carbon "
-         "factor (normally measured in kgCO2e per kg of material) for each lifecycle module being considered:")
+
+
+
+#st.markdown("<h5>Embodied carbon = quantity × carbon factor</h5>", unsafe_allow_html=True)
